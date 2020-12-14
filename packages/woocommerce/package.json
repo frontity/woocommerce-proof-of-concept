@@ -1,0 +1,16 @@
+{
+  "name": "woocommerce",
+  "version": "0.1.0",
+  "description": "Integrate Frontity with WooCommerce",
+  "keywords": [
+    "frontity",
+    "frontity-woocommerce"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@frontity/source": "^1.4.0",
+    "@frontity/wp-source": "^1.10.0",
+    "frontity": "^1.13.0",
+    "lodash.merge": "^4.6.2"
+  }
+}

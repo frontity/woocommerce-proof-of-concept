@@ -1,0 +1,41 @@
+const settings = {
+  name: "woocommerce-poc",
+  state: {
+    frontity: {
+      url: "https://test.frontity.org",
+      title: "Test Frontity Blog",
+      description: "WordPress installation for Frontity development",
+    },
+  },
+  packages: [
+    {
+      name: "woocommerce-theme",
+      state: {
+        theme: {
+          menu: [
+            ["Home", "/"],
+            ["Shop", "/shop"],
+            ["Cart", "/cart"],
+          ],
+          featured: {
+            showOnList: false,
+            showOnPost: false,
+          },
+        },
+      },
+    },
+    {
+      name: "@frontity/wp-source",
+      state: {
+        source: {
+          url: "http://woocommercepoc.local",
+        },
+      },
+    },
+    "@frontity/tiny-router",
+    "@frontity/html2react",
+    "woocommerce",
+  ],
+};
+
+export default settings;
