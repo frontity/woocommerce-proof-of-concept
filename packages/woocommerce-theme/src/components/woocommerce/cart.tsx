@@ -10,7 +10,7 @@ import { renderPrice } from "./utils";
  */
 const Cart: React.FC = () => {
   // Get the frontity state.
-  const { state } = useConnect<Packages>();
+  const { state, actions } = useConnect<Packages>();
 
   // Get the data of the product.
   const { cart } = state.woocommerce;
@@ -32,6 +32,11 @@ const Cart: React.FC = () => {
               <ItemDescription
                 dangerouslySetInnerHTML={{ __html: item.short_description }}
               />
+              <ItemRemove
+                onClick={() => actions.woocommerce.removeItemFromCart(item)}
+              >
+                ×
+              </ItemRemove>
             </ItemProduct>
             <StyledItemQuantity item={item} />
             <ItemTotal>
@@ -99,6 +104,7 @@ const ItemImage = styled.div`
 `;
 
 const ItemProduct = styled.div`
+  position: relative;
   grid-column-start: 2;
   grid-column-end: 4;
   grid-row-start: 1;
@@ -164,8 +170,25 @@ const Checkout = styled(Link)`
   width: 100%;
   padding: 1em;
   background: #333;
-  color: white;
+  color: white !important;
   font-size: 1.2em;
   font-weight: 600;
   text-align: center;
+`;
+
+const ItemRemove = styled.button`
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: -24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  font-size: 1.2em;
+  cursor: pointer;
 `;
