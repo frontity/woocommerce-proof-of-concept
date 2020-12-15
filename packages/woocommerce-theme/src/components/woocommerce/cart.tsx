@@ -40,12 +40,7 @@ const Cart: React.FC = () => {
                     {renderPrice({
                       quantity: item.quantity,
                       amount: item.prices.regular_price,
-                      minorUnit: item.prices.currency_minor_unit,
-                      decimalSeparator: item.prices.currency_decimal_separator,
-                      thousandSeparator:
-                        item.prices.currency_thousand_separator,
-                      prefix: item.prices.currency_prefix,
-                      suffix: item.prices.currency_suffix,
+                      currency: item.prices,
                     })}
                   </del>
                 </ItemRegularPrice>
@@ -54,11 +49,7 @@ const Cart: React.FC = () => {
                 {renderPrice({
                   quantity: item.quantity,
                   amount: item.prices.price,
-                  minorUnit: item.prices.currency_minor_unit,
-                  decimalSeparator: item.prices.currency_decimal_separator,
-                  thousandSeparator: item.prices.currency_thousand_separator,
-                  prefix: item.prices.currency_prefix,
-                  suffix: item.prices.currency_suffix,
+                  currency: item.prices,
                 })}
               </ItemPrice>
             </ItemTotal>
@@ -69,11 +60,7 @@ const Cart: React.FC = () => {
           <TotalAmount>
             {renderPrice({
               amount: cart.totals.total_price,
-              minorUnit: cart.totals.currency_minor_unit,
-              decimalSeparator: cart.totals.currency_decimal_separator,
-              thousandSeparator: cart.totals.currency_thousand_separator,
-              prefix: cart.totals.currency_prefix,
-              suffix: cart.totals.currency_suffix,
+              currency: cart.totals,
             })}
           </TotalAmount>
         </Total>

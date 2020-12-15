@@ -2,23 +2,40 @@
  * Utility to render a price.
  */
 export const renderPrice = ({
-  amount,
   quantity = 1,
-  minorUnit = 2,
-  decimalSeparator = ".",
-  thousandSeparator = ",",
-  prefix = "",
-  suffix = "",
+  amount,
+  currency,
+}: {
+  quantity?: number;
+  amount: string;
+  currency: {
+    currency_minor_unit: number;
+    currency_decimal_separator: string;
+    currency_thousand_separator: string;
+    currency_prefix: string;
+    currency_suffix: string;
+  };
 }) => {
+  // Get the currency props.
+  const {
+    currency_minor_unit,
+    currency_decimal_separator,
+    currency_thousand_separator,
+    currency_prefix,
+    currency_suffix,
+  } = currency;
+
+  // Get the final value in string format.
   const value = `${parseInt(amount, 10) * quantity}`;
 
   // Get the integer part and add the thousand separator each three numbers.
   const integer = value
-    .slice(0, -minorUnit)
-    .replace(/\B(?=(\d{3})+(?!\d))/g, thousandSeparator);
+    .slice(0, -currency_minor_unit)
+    .replace(/\B(?=(\d{3})+(?!\d))/g, currency_thousand_separator);
 
   // Get the fractional part.
-  const fractional = value.slice(-minorUnit);
+  const fractional = value.slice(-currency_minor_unit);
 
-  return `${prefix}${integer}${decimalSeparator}${fractional}${suffix}`;
+  // Add prefix, suffix, etc. and return the value.
+  return `${currency_prefix}${integer}${currency_decimal_separator}${fractional}${currency_suffix}`;
 };
