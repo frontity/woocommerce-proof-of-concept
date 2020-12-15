@@ -2,6 +2,7 @@ import React from "react";
 import { connect, useConnect, styled } from "frontity";
 import { Packages } from "../../../types";
 import Link from "../link";
+import ItemQuantity from "./item-quantity";
 import { renderPrice } from "./utils";
 
 /**
@@ -32,7 +33,7 @@ const Cart: React.FC = () => {
                 dangerouslySetInnerHTML={{ __html: item.short_description }}
               />
             </ItemProduct>
-            <ItemQuantity>{item.quantity}</ItemQuantity>
+            <StyledItemQuantity item={item} />
             <ItemTotal>
               {item.prices.price !== item.prices.regular_price && (
                 <ItemRegularPrice>
@@ -120,7 +121,7 @@ const ItemDescription = styled.div`
   }
 `;
 
-const ItemQuantity = styled.div`
+const StyledItemQuantity = styled(ItemQuantity)`
   grid-column-start: 1;
   grid-row-start: 2;
   vertical-align: bottom;
