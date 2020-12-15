@@ -22,47 +22,101 @@ const wooCommerce: WooCommerce = {
   },
   actions: {
     woocommerce: {
-      getCart: async ({ state }) => {
-        const response = await fetch(`${state.wpSource.api}wc/store/cart/`, {
-          method: "GET",
-          credentials: "include",
-        });
-
-        // TODO: check if the response is an error.
-        const cart: Cart = await response.json();
-
-        if (!state.woocommerce.cart) {
-          state.woocommerce.cart = cart;
-        } else {
-          batch(() => merge(state.woocommerce.cart, cart));
-        }
-      },
-
-      addItemToCart: ({ state }) => async ({ id, quantity }) => {
+      manageCart: ({ state }) => async ({
+        method,
+        action = "",
+        params = {},
+        body = undefined,
+      }) => {
+        const searchParams = new URLSearchParams(params);
         const response = await fetch(
-          `${state.wpSource.api}wc/store/cart/add-item?id=${id}&quantity=${quantity}`,
+          `${state.wpSource.api}wc/store/cart/${action}?${searchParams}`,
           {
-            method: "POST",
+            method,
             credentials: "include",
+            body: body && JSON.stringify(body),
           }
         );
 
         // TODO: check if the response is an error.
         const cart: Cart = await response.json();
-        batch(() => merge(state.woocommerce.cart, cart));
+
+        // Update the cart in the state.
+        state.woocommerce.cart = cart;
       },
 
-      removeItemFromCart: ({}) => async () => {},
+      getCart: async ({ actions }) => {
+        await actions.woocommerce.manageCart({ method: "GET" });
+      },
 
-      updateItemFromCart: ({}) => async () => {},
+      addItemToCart: ({ actions }) => async ({ id, quantity }) => {
+        await actions.woocommerce.manageCart({
+          method: "POST",
+          action: "add-item",
+          params: { id, quantity },
+        });
+      },
 
-      applyCouponToCart: ({}) => async () => {},
+      removeItemFromCart: ({ actions }) => async ({ key }) => {
+        await actions.woocommerce.manageCart({
+          method: "POST",
+          action: "remove-item",
+          params: { key },
+        });
+      },
 
-      removeCouponFromCart: ({}) => async () => {},
+      updateItemFromCart: ({ actions }) => async ({ key, quantity }) => {
+        await actions.woocommerce.manageCart({
+          method: "POST",
+          action: "update-item",
+          params: { key, quantity },
+        });
+      },
 
-      updateCustomer: ({}) => async () => {},
+      applyCoupon: ({ actions }) => async ({ code }) => {
+        await actions.woocommerce.manageCart({
+          method: "POST",
+          action: "apply-coupon",
+          params: { code },
+        });
+      },
 
-      selectShippingRate: ({}) => async () => {},
+      removeCoupon: ({ actions }) => async ({ code }) => {
+        await actions.woocommerce.manageCart({
+          method: "POST",
+          action: "remove-coupon",
+          params: { code },
+        });
+      },
+
+      updateCustomer: ({ state, actions }) => async ({
+        billingAddress,
+        shippingAddress,
+      }) => {
+        // First, update the current state. This would be overwritten with the
+        // REST API response but we can show the changes in advance.
+        batch(() => {
+          merge(state.woocommerce.cart.billing_address, billingAddress);
+          merge(state.woocommerce.cart.shipping_address, shippingAddress);
+        });
+
+        // Get updated values from the state.
+        const { billing_address, shipping_address } = state.woocommerce.cart;
+
+        await actions.woocommerce.manageCart({
+          method: "POST",
+          action: "remove-coupon",
+          body: { billing_address, shipping_address },
+        });
+      },
+
+      selectShippingRate: ({ actions }) => async ({ package_id, rate_id }) => {
+        await actions.woocommerce.manageCart({
+          method: "POST",
+          action: "remove-coupon",
+          params: { package_id, rate_id },
+        });
+      },
 
       getCheckout: async ({ state }) => {
         const response = await fetch(

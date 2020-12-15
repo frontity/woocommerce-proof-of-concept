@@ -50,6 +50,16 @@ interface WooCommerce extends Package {
      * WooCommerce namespace.
      */
     woocommerce: {
+      manageCart: AsyncAction<
+        Packages,
+        {
+          method: "GET" | "POST" | "PUT";
+          action?: string;
+          params?: Record<string, any>;
+          body?: unknown;
+        }
+      >;
+
       getCart: AsyncAction<Packages>;
 
       addItemToCart: AsyncAction<
@@ -75,14 +85,14 @@ interface WooCommerce extends Package {
         }
       >;
 
-      applyCouponToCart: AsyncAction<
+      applyCoupon: AsyncAction<
         Packages,
         {
           code: string;
         }
       >;
 
-      removeCouponFromCart: AsyncAction<
+      removeCoupon: AsyncAction<
         Packages,
         {
           code: string;
@@ -92,7 +102,8 @@ interface WooCommerce extends Package {
       updateCustomer: AsyncAction<
         Packages,
         {
-          code: string;
+          shippingAddress?: Partial<ShippingAddress>;
+          billingAddress?: Partial<BillingAddress>;
         }
       >;
 
