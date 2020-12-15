@@ -39,4 +39,5 @@ const Input = styled.input`
   margin-right: 16px;
   padding-left: 1em;
   max-width: 4em;
+  height: 2.5em;
 `;
