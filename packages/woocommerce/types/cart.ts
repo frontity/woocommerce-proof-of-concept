@@ -63,7 +63,7 @@ export interface CartItem {
   short_description: string;
   description: string;
   sku: string;
-  low_stock_remaining: null;
+  low_stock_remaining: unknown;
   backorders_allowed: boolean;
   show_backorder_badge: boolean;
   sold_individually: boolean;
