@@ -7,20 +7,21 @@ import { debounce } from "ts-debounce";
 type BillingFieldProps = {
   label: string;
   field: keyof BillingAddress;
-};
+} & React.HTMLProps<HTMLInputElement>;
 
 /**
  * Component that renders the checkout page.
  */
-const Checkout: React.FC<BillingFieldProps> = ({ label, field }) => {
+const Checkout: React.FC<BillingFieldProps> = ({
+  label,
+  field,
+  ...inputProps
+}) => {
   // Get the frontity state.
   const { state, actions } = useConnect<Packages>();
 
   // Get the data of the field value.
-  const realValue = state.woocommerce.cart.billing_address[field];
-
-  // Create state for this field value.
-  const [value, setValue] = React.useState(realValue);
+  const value = state.woocommerce.cart.billing_address[field];
 
   // Debounced function to update the billing info in the server.
   const updateBillingField = React.useRef(
@@ -30,13 +31,8 @@ const Checkout: React.FC<BillingFieldProps> = ({ label, field }) => {
           [field]: value,
         },
       });
-    }, 400)
+    }, 1000)
   );
-
-  // Update the current field value each time it changes in the frontity state.
-  React.useEffect(() => {
-    setValue(realValue);
-  }, [realValue]);
 
   return (
     <Field>
@@ -46,9 +42,15 @@ const Checkout: React.FC<BillingFieldProps> = ({ label, field }) => {
         type="text"
         value={value}
         onChange={(e) => {
-          setValue(e.target.value);
-          updateBillingField.current(e.target.value);
+          // First update it in the state.
+          state.woocommerce.cart.billing_address[field] = e.target.value;
+
+          // Then, call the debounced method to update it in the server.
+          e.target.checkValidity();
+          if (e.target.reportValidity())
+            updateBillingField.current(e.target.value);
         }}
+        {...inputProps}
       />
     </Field>
   );
