@@ -50,16 +50,6 @@ interface WooCommerce extends Package {
      * WooCommerce namespace.
      */
     woocommerce: {
-      manageCart: AsyncAction<
-        Packages,
-        {
-          method: "GET" | "POST" | "PUT";
-          action?: string;
-          params?: Record<string, any>;
-          body?: unknown;
-        }
-      >;
-
       getCart: AsyncAction<Packages>;
 
       addItemToCart: AsyncAction<

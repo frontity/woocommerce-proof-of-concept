@@ -1,10 +1,11 @@
 import { batch, fetch } from "frontity";
 import merge from "lodash.merge";
-import WooCommerce, { Cart, Checkout } from "../types";
+import WooCommerce, { Checkout } from "../types";
 import ProductHandler from "./handlers/product";
 import ShopHandler from "./handlers/shop";
 import CartHandler from "./handlers/cart";
 import CheckoutHandler from "./handlers/checkout";
+import storeApi from "./store-api";
 
 const wooCommerce: WooCommerce = {
   name: "woocommerce",
@@ -22,77 +23,56 @@ const wooCommerce: WooCommerce = {
   },
   actions: {
     woocommerce: {
-      manageCart: ({ state }) => async ({
-        method,
-        action = "",
-        params = {},
-        body = undefined,
-      }) => {
-        const searchParams = new URLSearchParams(params);
-        const response = await fetch(
-          `${state.wpSource.api}wc/store/cart/${action}?${searchParams}`,
-          {
-            method,
-            credentials: "include",
-            body: body && JSON.stringify(body),
-            headers: body && {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        // TODO: check if the response is an error.
-        const cart: Cart = await response.json();
-
-        // Update the cart in the state.
-        state.woocommerce.cart = cart;
+      getCart: async ({ state }) => {
+        state.woocommerce.cart = await storeApi({ state, endpoint: "cart" });
       },
 
-      getCart: async ({ actions }) => {
-        await actions.woocommerce.manageCart({ method: "GET" });
-      },
-
-      addItemToCart: ({ actions }) => async ({ id, quantity }) => {
-        await actions.woocommerce.manageCart({
+      addItemToCart: ({ state }) => async ({ id, quantity }) => {
+        state.woocommerce.cart = await storeApi({
+          state,
+          endpoint: "cart/add-item",
           method: "POST",
-          action: "add-item",
           params: { id, quantity },
         });
       },
 
-      removeItemFromCart: ({ actions }) => async ({ key }) => {
-        await actions.woocommerce.manageCart({
+      removeItemFromCart: ({ state }) => async ({ key }) => {
+        state.woocommerce.cart = await storeApi({
+          state,
+          endpoint: "cart/remove-item",
           method: "POST",
-          action: "remove-item",
           params: { key },
         });
       },
 
-      updateItemFromCart: ({ actions }) => async ({ key, quantity }) => {
-        await actions.woocommerce.manageCart({
+      updateItemFromCart: ({ state }) => async ({ key, quantity }) => {
+        state.woocommerce.cart = await storeApi({
+          state,
+          endpoint: "cart/update-item",
           method: "POST",
-          action: "update-item",
           params: { key, quantity },
         });
       },
 
-      applyCoupon: ({ actions }) => async ({ code }) => {
-        await actions.woocommerce.manageCart({
+      applyCoupon: ({ state }) => async ({ code }) => {
+        state.woocommerce.cart = await storeApi({
+          state,
+          endpoint: "cart/apply-coupon",
           method: "POST",
-          action: "apply-coupon",
           params: { code },
         });
       },
 
-      removeCoupon: ({ actions }) => async ({ code }) => {
-        await actions.woocommerce.manageCart({
+      removeCoupon: ({ state }) => async ({ code }) => {
+        state.woocommerce.cart = await storeApi({
+          state,
+          endpoint: "cart/remove-coupon",
           method: "POST",
-          action: "remove-coupon",
           params: { code },
         });
       },
 
-      updateCustomer: ({ state, actions }) => async ({
+      updateCustomer: ({ state }) => async ({
         billingAddress,
         shippingAddress,
       }) => {
@@ -106,18 +86,20 @@ const wooCommerce: WooCommerce = {
         // Get updated values from the state.
         const { billing_address, shipping_address } = state.woocommerce.cart;
 
-        await actions.woocommerce.manageCart({
+        state.woocommerce.cart = await storeApi({
+          state,
+          endpoint: "cart/update-customer",
           method: "POST",
-          action: "update-customer",
           body: { billing_address, shipping_address },
         });
       },
 
-      selectShippingRate: ({ actions }) => async ({ package_id, rate_id }) => {
-        await actions.woocommerce.manageCart({
+      selectShippingRate: ({ state }) => async ({ package_id, rate_id }) => {
+        state.woocommerce.cart = await storeApi({
+          state,
+          endpoint: `cart/select-shipping-rate/${package_id}`,
           method: "POST",
-          action: "remove-coupon",
-          params: { package_id, rate_id },
+          params: { rate_id },
         });
       },
 
