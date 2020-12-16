@@ -40,7 +40,7 @@ const Shop: React.FC<ShopProps> = ({ data }) => {
                   dangerouslySetInnerHTML={{ __html: product.price_html }}
                 />
               </Link>
-              <AddToCart id={id} {...product.add_to_cart} />
+              <AddToCart product={product} />
             </Product>
           );
         })}

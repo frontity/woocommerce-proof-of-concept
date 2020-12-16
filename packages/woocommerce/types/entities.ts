@@ -27,7 +27,7 @@ export interface ProductEntity extends Entity {
   is_purchasable: boolean;
   is_in_stock: boolean;
   is_on_backorder: boolean;
-  low_stock_remaining: null;
+  low_stock_remaining: unknown;
   sold_individually: boolean;
   quantity_limit: number;
   add_to_cart: ProductAddToCart;

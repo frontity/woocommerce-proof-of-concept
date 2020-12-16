@@ -1,18 +1,16 @@
 import React from "react";
 import { connect, useConnect, styled } from "frontity";
-import { ProductAddToCart } from "woocommerce/types";
+import { ProductEntity } from "woocommerce/types";
 import { Packages } from "../../../types";
+import Link from "../link";
 
-type AddToCartProps = ProductAddToCart & {
-  id: number;
+type AddToCartProps = {
+  product: ProductEntity;
   showQuantity?: boolean;
 };
 
 const AddToCart: React.FC<AddToCartProps> = ({
-  text,
-  description,
-  url,
-  id,
+  product,
   showQuantity = false,
 }) => {
   // Connect to the Frontity store.
@@ -20,8 +18,12 @@ const AddToCart: React.FC<AddToCartProps> = ({
   const { cart } = state.woocommerce;
   const { addItemToCart } = actions.woocommerce;
 
+  // Get required props from the product.
+  const { type, id, add_to_cart } = product;
+  const { text, description, url } = add_to_cart;
+
   // Get the item and its current quantity.
-  const item = cart && cart.items.find((p) => p.id === id);
+  const item = cart?.items?.find((p) => p.id === id);
   const currentQuantity = item ? item.quantity : 0;
 
   // Save an internal counter. The value in the cart is updated when the button
@@ -50,24 +52,32 @@ const AddToCart: React.FC<AddToCartProps> = ({
           inputMode="numeric"
         />
       )}
-      <ButtonContainer>
-        <Button
-          title={description}
-          onClick={async () => {
-            // Do nothing if a task is pending.
-            if (isPending) return;
+      {type === "simple" ? (
+        <ButtonContainer>
+          <Button
+            title={description}
+            onClick={async () => {
+              // Do nothing if a task is pending.
+              if (isPending) return;
 
-            setIsPending(true);
-            await addItemToCart({ id, quantity });
-            setIsPending(false);
-          }}
-        >
-          {isPending ? "Adding to cart..." : text}
-        </Button>
-        <Quantity css={{ opacity: currentQuantity ? 1 : 0 }}>
-          {currentQuantity}
-        </Quantity>
-      </ButtonContainer>
+              setIsPending(true);
+              await addItemToCart({ id, quantity });
+              setIsPending(false);
+            }}
+          >
+            {isPending ? "Adding to cart..." : text}
+          </Button>
+          <Quantity css={{ opacity: currentQuantity ? 1 : 0 }}>
+            {currentQuantity}
+          </Quantity>
+        </ButtonContainer>
+      ) : (
+        <StyledLink link={url}>
+          <ButtonContainer>
+            <Button title={description}>{text}</Button>
+          </ButtonContainer>
+        </StyledLink>
+      )}
     </Container>
   );
 };
@@ -115,4 +125,9 @@ const Button = styled.button`
   width: 100%;
   text-align: center;
   cursor: pointer;
+`;
+
+const StyledLink = styled(Link)`
+  display: block;
+  width: 100%;
 `;

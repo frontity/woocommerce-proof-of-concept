@@ -44,7 +44,7 @@ const Product: React.FC<ProductProps> = ({ data }) => {
         <ShortDescription
           dangerouslySetInnerHTML={{ __html: product.short_description }}
         />
-        <AddToCart showQuantity id={product.id} {...product.add_to_cart} />
+        <AddToCart showQuantity product={product} />
       </Summary>
       <Tabs>
         <TabTitle>Description</TabTitle>
