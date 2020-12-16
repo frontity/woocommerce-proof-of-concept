@@ -1,6 +1,5 @@
 import React from "react";
 import { connect, useConnect, styled } from "frontity";
-import { BillingAddress } from "woocommerce/types";
 import { Packages } from "../../../types";
 import Loading from "../loading";
 import Link from "../link";
