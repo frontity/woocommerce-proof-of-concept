@@ -146,7 +146,6 @@ const wooCommerce: WooCommerce = {
 
       afterCSR: ({ actions }) => {
         actions.woocommerce.getCart();
-        // actions.woocommerce.getCheckout();
       },
     },
   },
