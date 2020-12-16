@@ -26,7 +26,10 @@ export const renderPrice = ({
   } = currency;
 
   // Get the final value in string format.
-  const value = `${parseInt(amount, 10) * quantity}`;
+  const value = `${parseInt(amount, 10) * quantity}`.padStart(
+    currency_minor_unit + 1,
+    "0"
+  );
 
   // Get the integer part and add the thousand separator each three numbers.
   const integer = value
