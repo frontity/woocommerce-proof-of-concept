@@ -4,6 +4,7 @@ import { Packages } from "../../../types";
 import Link from "../link";
 import ItemQuantity from "./item-quantity";
 import { renderPrice } from "./utils";
+import Loading from "../loading";
 
 /**
  * Component that renders the cart page.
@@ -16,7 +17,7 @@ const Cart: React.FC = () => {
   const { cart } = state.woocommerce;
 
   // If there's no cart yet, just return null.
-  if (!cart) return null;
+  if (!cart) return <Loading />;
 
   return (
     <Container>
