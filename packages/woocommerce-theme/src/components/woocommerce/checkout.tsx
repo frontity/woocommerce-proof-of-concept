@@ -31,18 +31,23 @@ const Checkout: React.FC = () => {
       <Form>
         <h2>Contact information</h2>
         <FormSection>
-          <BillingField label="Email address" field="email" />
-          <BillingField label="Phone number" field="phone" />
+          <BillingField
+            label="Email address"
+            field="email"
+            type="email"
+            required
+          />
+          <BillingField label="Phone number" field="phone" type="tel" />
         </FormSection>
         <h2>Billing Address</h2>
         <FormSection>
-          <BillingField label="First name" field="first_name" />
-          <BillingField label="Last name" field="last_name" />
-          <BillingField label="Address" field="address_1" />
+          <BillingField label="First name" field="first_name" required />
+          <BillingField label="Last name" field="last_name" required />
+          <BillingField label="Address" field="address_1" required />
           <BillingField label="Adderss (2nd line)" field="address_2" />
-          <BillingField label="City" field="city" />
-          <BillingField label="State" field="state" />
-          <BillingField label="Postcode" field="postcode" />
+          <BillingField label="City" field="city" required />
+          <BillingField label="State" field="state" required />
+          <BillingField label="Postcode" field="postcode" required />
         </FormSection>
         <h2>Payment method</h2>
         <p>Only check payments are allowed right now</p>
