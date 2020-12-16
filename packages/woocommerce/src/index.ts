@@ -35,6 +35,9 @@ const wooCommerce: WooCommerce = {
             method,
             credentials: "include",
             body: body && JSON.stringify(body),
+            headers: body && {
+              "Content-Type": "application/json",
+            },
           }
         );
 
@@ -105,7 +108,7 @@ const wooCommerce: WooCommerce = {
 
         await actions.woocommerce.manageCart({
           method: "POST",
-          action: "remove-coupon",
+          action: "update-customer",
           body: { billing_address, shipping_address },
         });
       },
