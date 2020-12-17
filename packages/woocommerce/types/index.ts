@@ -1,8 +1,13 @@
-import { MergePackages, Package, AsyncAction, Action } from "frontity/types";
+import {
+  MergePackages,
+  Package,
+  AsyncAction,
+  Action,
+  Derived,
+} from "frontity/types";
 import WpSource from "@frontity/wp-source/types";
-import { ProductEntity } from "./entities";
+import { OrderEntity, ProductEntity } from "./entities";
 import { Cart, ShippingAddress, BillingAddress } from "./cart";
-import { Checkout } from "./checkout";
 
 /**
  * Integrate Frontity with WooCommerce.
@@ -22,6 +27,11 @@ interface WooCommerce extends Package {
        * Map of populated products, by ID.
        */
       product: Record<number, ProductEntity>;
+
+      /**
+       * Map of populated orders, by ID.
+       */
+      order: Record<number, OrderEntity>;
     };
 
     /**
@@ -36,9 +46,15 @@ interface WooCommerce extends Package {
       /**
        * Object with the current state of the checkout.
        *
-       * TODO: implement this.
+       * Note that this object doesn't have the same structure that the object
+       * returned by the Store API.
        */
-      checkout: Checkout;
+      checkout: {
+        billingAddress: Derived<Packages, BillingAddress>;
+        shippingAddress: Derived<Packages, ShippingAddress>;
+        customerNote: string;
+        paymentMethod: string;
+      };
     };
   };
 
@@ -105,19 +121,16 @@ interface WooCommerce extends Package {
         }
       >;
 
-      getCheckout: AsyncAction<Packages>;
+      setCustomerNote: Action<Packages, string>;
 
-      updateCheckout: AsyncAction<
+      setPaymentMethod: Action<Packages, string>;
+
+      placeOrder: AsyncAction<
         Packages,
         {
-          shippingAddress?: ShippingAddress;
-          billingAddress?: BillingAddress;
-          customerNote?: string;
-          paymentMethod?: string;
+          paymentData?: unknown;
         }
       >;
-
-      placeOrder: AsyncAction<Packages>;
 
       afterCSR: Action<Packages>;
     };

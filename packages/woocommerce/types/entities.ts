@@ -1,4 +1,6 @@
 import { Entity } from "@frontity/source/types";
+import { Cart } from "./cart";
+import { Checkout } from "./checkout";
 
 /**
  * Entity that represents a WooCommerce product.
@@ -105,4 +107,9 @@ export interface ProductAddToCart {
    * URL pointed by the button.
    */
   url: string;
+}
+
+export interface OrderEntity {
+  checkout: Checkout;
+  cart: Cart;
 }

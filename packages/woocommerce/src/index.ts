@@ -19,6 +19,7 @@ const wooCommerce: WooCommerce = {
     },
     source: {
       product: {},
+      order: {},
     },
   },
   actions: {
@@ -73,8 +74,8 @@ const wooCommerce: WooCommerce = {
       },
 
       updateCustomer: ({ state }) => async ({
-        billingAddress,
-        shippingAddress,
+        billingAddress = {},
+        shippingAddress = {},
       }) => {
         // First, update the current state. This would be overwritten with the
         // REST API response but we can show the changes in advance.
@@ -86,6 +87,7 @@ const wooCommerce: WooCommerce = {
         // Get updated values from the state.
         const { billing_address, shipping_address } = state.woocommerce.cart;
 
+        // Send the updated values and get the cart updated back.
         state.woocommerce.cart = await storeApi({
           state,
           endpoint: "cart/update-customer",
@@ -103,28 +105,46 @@ const wooCommerce: WooCommerce = {
         });
       },
 
-      getCheckout: async ({ state }) => {
-        const response = await fetch(
-          `${state.wpSource.api}wc/store/checkout/`,
-          {
-            method: "GET",
-            credentials: "include",
-          }
-        );
-
-        // TODO: check if the response is an error.
-        const checkout: Checkout = await response.json();
-
-        if (!state.woocommerce.checkout) {
-          state.woocommerce.checkout = checkout;
-        } else {
-          batch(() => merge(state.woocommerce.checkout, checkout));
-        }
+      setCustomerNote: ({ state }) => (customerNote) => {
+        state.woocommerce.checkout.customerNote = customerNote;
       },
 
-      updateCheckout: ({}) => async () => {},
+      setPaymentMethod: ({ state }) => (paymentMethod) => {
+        state.woocommerce.checkout.paymentMethod = paymentMethod;
+      },
 
-      placeOrder: async ({ state }) => {},
+      placeOrder: ({ state, actions }) => async ({ paymentData = {} }) => {
+        const {
+          billingAddress,
+          shippingAddress,
+          paymentMethod,
+          customerNote,
+        } = state.woocommerce.checkout;
+
+        // Get the checkout result from the REST API.
+        const checkout: Checkout = await storeApi({
+          state,
+          endpoint: "checkout",
+          method: "POST",
+          body: {
+            billing_address: billingAddress,
+            shipping_address: shippingAddress,
+            payment_method: paymentMethod,
+            customer_note: customerNote,
+            payment_data: paymentData,
+          },
+        });
+
+        // Get the current cart from the state.
+        const { cart } = state.woocommerce;
+
+        // Create an order entity putting all the information together.
+        state.source.order[checkout.order_id] = { checkout, cart };
+
+        // Get the current cart from the REST API. It should be empty now. We
+        // don't need to wait for the response here.
+        actions.woocommerce.getCart();
+      },
 
       afterCSR: ({ actions }) => {
         actions.woocommerce.getCart();

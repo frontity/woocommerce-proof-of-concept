@@ -3,7 +3,7 @@ import { BillingAddress, ShippingAddress } from "./cart";
 export interface PaymentResults {
   payment_status: string;
   redirect_url: string;
-  payment_details: [];
+  payment_details: unknown;
 }
 
 export interface Checkout {
