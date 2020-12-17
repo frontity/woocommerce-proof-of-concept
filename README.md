@@ -90,7 +90,7 @@ To start the Frontity project:
 - Run the `npx frontity dev` command. Note that, for the Embedded Mode to work, the `public-path` parameter needs to be specified.
 
   ```bash
-  npx frontity dev --public-path http://localhost:3000/static
+  npx frontity dev --public-path http://localhost:3000/static --dont-open-browser
   ```
 
 - Navigate to the URL of your WordPress instance (**not to http://localhost:3000**) to see the Frontity site in action.
