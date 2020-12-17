@@ -10,7 +10,7 @@ import BillingField from "./billing-field";
  */
 const Checkout: React.FC = () => {
   // Get the frontity state.
-  const { state } = useConnect<Packages>();
+  const { state, actions } = useConnect<Packages>();
   const { cart } = state.woocommerce;
 
   // If there's no cart yet, just return null.
@@ -56,7 +56,19 @@ const Checkout: React.FC = () => {
           <textarea />
         </FormSection>
         <button>return to cart</button>
-        <button type="submit">Place order</button>
+        <button
+          type="submit"
+          onClick={async (e) => {
+            e.preventDefault();
+
+            // Do nothing if `paymentMethod` was not specified yet.
+            if (!state.woocommerce.checkout.payment_method) return;
+
+            await actions.woocommerce.placeOrder();
+          }}
+        >
+          Place order
+        </button>
       </Form>
     </Container>
   );
