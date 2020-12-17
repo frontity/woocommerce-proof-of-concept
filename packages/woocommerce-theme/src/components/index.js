@@ -7,6 +7,7 @@ import {
   isProductArchive,
   isCart,
   isCheckout,
+  isOrder,
 } from "woocommerce/src";
 import Header from "./header";
 import List from "./list";
@@ -18,6 +19,7 @@ import Product from "./woocommerce/product";
 import Shop from "./woocommerce/shop";
 import Cart from "./woocommerce/cart";
 import Checkout from "./woocommerce/checkout";
+import Order from "./woocommerce/order";
 
 /**
  * Theme is the root React component of our theme. The one we will export
@@ -54,6 +56,7 @@ const Theme = ({ state }) => {
           <Shop when={isProductArchive(data)} data={data} />
           <Cart when={isCart(data)} />
           <Checkout when={isCheckout(data)} />
+          <Order when={isOrder(data)} data={data} />
           <List when={isArchive(data)} />
           <Post when={isPostType(data)} />
           <PageError when={isError(data)} />
