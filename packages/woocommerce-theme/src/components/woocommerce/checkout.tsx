@@ -69,8 +69,10 @@ const Checkout: React.FC = () => {
             }}
           />
         </FormSection>
-        <button>return to cart</button>
-        <button type="submit">Place order</button>
+        <Buttons>
+          <BackButton link="/cart">Return to Cart</BackButton>
+          <SubmitButton type="submit">Place order</SubmitButton>
+        </Buttons>
       </Form>
     </Container>
   );
@@ -110,4 +112,35 @@ const ShopLink = styled(Link)`
 const TextArea = styled.textarea`
   width: 100%;
   height: 4em;
+`;
+
+const Buttons = styled.div`
+  margin-top: 1em;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+
+  & > * {
+    flex-grow: 1;
+    display: block;
+    box-sizing: border-box;
+    font-size: 1em;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+  }
+`;
+
+const BackButton = styled(Link)`
+  padding: calc(1em - 2px);
+  border: 2px solid #333;
+  background: transparent;
+  color: #333 !important;
+`;
+
+const SubmitButton = styled.button`
+  padding: 1em;
+  border: none;
+  background: #333;
+  color: white !important;
 `;
