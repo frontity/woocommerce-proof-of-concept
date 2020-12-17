@@ -8,6 +8,7 @@ import {
 import WpSource from "@frontity/wp-source/types";
 import { OrderEntity, ProductEntity } from "./entities";
 import { Cart, ShippingAddress, BillingAddress } from "./cart";
+import Router from "@frontity/router/types";
 
 /**
  * Integrate Frontity with WooCommerce.
@@ -149,7 +150,7 @@ interface WooCommerce extends Package {
 
 export default WooCommerce;
 
-export type Packages = MergePackages<WpSource, WooCommerce>;
+export type Packages = MergePackages<WpSource, Router, WooCommerce>;
 
 export * from "./data";
 export * from "./entities";

@@ -4,7 +4,7 @@ import { Packages } from "../../types";
 
 const CheckoutHandler: Pattern<Handler<Packages>> = {
   name: "checkout",
-  priority: 10,
+  priority: 11,
   pattern: "/checkout/",
   func: async ({ link, state }) => {
     // Just assign the `isCheckout` boolean.

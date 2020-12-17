@@ -5,6 +5,7 @@ import ProductHandler from "./handlers/product";
 import ShopHandler from "./handlers/shop";
 import CartHandler from "./handlers/cart";
 import CheckoutHandler from "./handlers/checkout";
+import OrderHandler from "./handlers/order";
 import storeApi from "./store-api";
 
 const wooCommerce: WooCommerce = {
@@ -150,6 +151,9 @@ const wooCommerce: WooCommerce = {
         // Get the current cart from the REST API. It should be empty now. We
         // don't need to wait for the response here.
         actions.woocommerce.getCart();
+
+        // Finally, this action redirects the user to the order page.
+        actions.router.set(checkout.payment_result.redirect_url);
       },
 
       afterCSR: ({ actions }) => {
@@ -159,7 +163,13 @@ const wooCommerce: WooCommerce = {
   },
   libraries: {
     source: {
-      handlers: [ProductHandler, ShopHandler, CartHandler, CheckoutHandler],
+      handlers: [
+        ProductHandler,
+        ShopHandler,
+        CartHandler,
+        CheckoutHandler,
+        OrderHandler,
+      ],
     },
   },
 };
