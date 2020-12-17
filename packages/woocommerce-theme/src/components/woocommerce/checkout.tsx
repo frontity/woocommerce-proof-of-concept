@@ -30,7 +30,14 @@ const Checkout: React.FC = () => {
   return (
     <Container>
       <Summary>Summary</Summary>
-      <Form>
+      <Form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          // Do nothing if `paymentMethod` was not specified yet.
+          if (!state.woocommerce.checkout.payment_method) return;
+          await actions.woocommerce.placeOrder();
+        }}
+      >
         <h2>Contact information</h2>
         <FormSection>
           <BillingField
@@ -63,19 +70,7 @@ const Checkout: React.FC = () => {
           />
         </FormSection>
         <button>return to cart</button>
-        <button
-          type="submit"
-          onClick={async (e) => {
-            e.preventDefault();
-
-            // Do nothing if `paymentMethod` was not specified yet.
-            if (!state.woocommerce.checkout.payment_method) return;
-
-            await actions.woocommerce.placeOrder();
-          }}
-        >
-          Place order
-        </button>
+        <button type="submit">Place order</button>
       </Form>
     </Container>
   );
@@ -91,7 +86,7 @@ const Container = styled.div`
 
 const Summary = styled.div``;
 
-const Form = styled.div``;
+const Form = styled.form``;
 
 const FormSection = styled.div``;
 
