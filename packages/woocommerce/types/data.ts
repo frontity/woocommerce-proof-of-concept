@@ -16,3 +16,8 @@ export interface CartData extends Data {
 export interface CheckoutData extends Data {
   isCheckout: true;
 }
+
+export interface OrderData extends Data {
+  isOrder: true;
+  id: number;
+}

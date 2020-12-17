@@ -4,6 +4,7 @@ import {
   ProductArchiveData,
   CartData,
   CheckoutData,
+  OrderData,
 } from "../types/data";
 import { ProductEntity } from "../types/entities";
 
@@ -21,6 +22,10 @@ export function isCart(data: Data): data is CartData {
 
 export function isCheckout(data: Data): data is CheckoutData {
   return (data as CheckoutData).isCheckout;
+}
+
+export function isOrder(data: Data): data is OrderData {
+  return (data as OrderData).isOrder;
 }
 
 export function isProductEntity(entity: Entity): entity is ProductEntity {
