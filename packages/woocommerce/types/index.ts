@@ -125,7 +125,7 @@ interface WooCommerce extends Package {
 
       setPaymentMethod: Action<Packages, string>;
 
-      placeOrder: AsyncAction<Packages, unknown>;
+      placeOrder: AsyncAction<Packages> | AsyncAction<Packages, unknown>;
 
       afterCSR: Action<Packages>;
     };
