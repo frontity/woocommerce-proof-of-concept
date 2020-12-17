@@ -15,7 +15,13 @@ const wooCommerce: WooCommerce = {
       cart: null,
 
       // The checkout is null by default.
-      checkout: null,
+      checkout: {
+        billing_address: ({ state }) => state.woocommerce.cart?.billing_address,
+        shipping_address: ({ state }) =>
+          state.woocommerce.cart?.shipping_address,
+        payment_method: "",
+        customer_note: "",
+      },
     },
     source: {
       product: {},
@@ -105,20 +111,20 @@ const wooCommerce: WooCommerce = {
         });
       },
 
-      setCustomerNote: ({ state }) => (customerNote) => {
-        state.woocommerce.checkout.customerNote = customerNote;
+      setCustomerNote: ({ state }) => (customer_note) => {
+        state.woocommerce.checkout.customer_note = customer_note;
       },
 
-      setPaymentMethod: ({ state }) => (paymentMethod) => {
-        state.woocommerce.checkout.paymentMethod = paymentMethod;
+      setPaymentMethod: ({ state }) => (payment_method) => {
+        state.woocommerce.checkout.payment_method = payment_method;
       },
 
-      placeOrder: ({ state, actions }) => async ({ paymentData = {} }) => {
+      placeOrder: ({ state, actions }) => async (payment_data = {}) => {
         const {
-          billingAddress,
-          shippingAddress,
-          paymentMethod,
-          customerNote,
+          billing_address,
+          shipping_address,
+          payment_method,
+          customer_note,
         } = state.woocommerce.checkout;
 
         // Get the checkout result from the REST API.
@@ -127,11 +133,11 @@ const wooCommerce: WooCommerce = {
           endpoint: "checkout",
           method: "POST",
           body: {
-            billing_address: billingAddress,
-            shipping_address: shippingAddress,
-            payment_method: paymentMethod,
-            customer_note: customerNote,
-            payment_data: paymentData,
+            billing_address,
+            shipping_address,
+            payment_method,
+            customer_note,
+            payment_data,
           },
         });
 

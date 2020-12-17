@@ -50,10 +50,10 @@ interface WooCommerce extends Package {
        * returned by the Store API.
        */
       checkout: {
-        billingAddress: Derived<Packages, BillingAddress>;
-        shippingAddress: Derived<Packages, ShippingAddress>;
-        customerNote: string;
-        paymentMethod: string;
+        billing_address: Derived<Packages, BillingAddress>;
+        shipping_address: Derived<Packages, ShippingAddress>;
+        customer_note: string;
+        payment_method: string;
       };
     };
   };
@@ -125,12 +125,7 @@ interface WooCommerce extends Package {
 
       setPaymentMethod: Action<Packages, string>;
 
-      placeOrder: AsyncAction<
-        Packages,
-        {
-          paymentData?: unknown;
-        }
-      >;
+      placeOrder: AsyncAction<Packages, unknown>;
 
       afterCSR: Action<Packages>;
     };
