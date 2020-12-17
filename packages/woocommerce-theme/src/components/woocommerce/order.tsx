@@ -33,7 +33,7 @@ const Order: React.FC<OrderProps> = ({ data }) => {
 export default connect(Order, { injectProps: false });
 
 const Container = styled.div`
-  width: 800px;
-  margin-top: 90px;
-  position: relative;
+  width: 600px;
+  margin: 0;
+  padding: 24px;
 `;

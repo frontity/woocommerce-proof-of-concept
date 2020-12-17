@@ -25,6 +25,8 @@ const Checkout: React.FC = () => {
       </Container>
     );
 
+  const { customer_note } = state.woocommerce.checkout;
+
   return (
     <Container>
       <Summary>Summary</Summary>
@@ -53,7 +55,12 @@ const Checkout: React.FC = () => {
         <p>Only check payments are allowed right now</p>
         <h2>Notes</h2>
         <FormSection>
-          <textarea />
+          <TextArea
+            value={customer_note}
+            onChange={(e) => {
+              actions.woocommerce.setCustomerNote(e.target.value);
+            }}
+          />
         </FormSection>
         <button>return to cart</button>
         <button
@@ -103,4 +110,9 @@ const ShopLink = styled(Link)`
   font-weight: 600;
   text-align: center;
   width: fit-content;
+`;
+
+const TextArea = styled.textarea`
+  width: 100%;
+  height: 4em;
 `;
