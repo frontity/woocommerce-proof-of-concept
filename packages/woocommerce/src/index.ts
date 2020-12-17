@@ -20,7 +20,7 @@ const wooCommerce: WooCommerce = {
         billing_address: ({ state }) => state.woocommerce.cart?.billing_address,
         shipping_address: ({ state }) =>
           state.woocommerce.cart?.shipping_address,
-        payment_method: "",
+        payment_method: "cheque",
         customer_note: "",
       },
     },
