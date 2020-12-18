@@ -21,9 +21,61 @@ This repository contains a Frontity project with two packages:
 - Renders pages for the products, the cart, checkout, etc.
 - It is based on the `@frontity/mars-theme` starter theme, and all the components related to WooCoomerce are placed into the `/packages/woocommerce-theme/src/components/woocommerce` folder.
 
-## WordPress Setup
+### What it does
 
-You need first a WordPress development instance configured following these steps:
+Here's a list of the things you can do with this proof of concept:
+
+- [x] List all products
+- [x] Preview products
+- [x] Add simple products to the cart
+- [x] Modify the quantity of each product in the cart
+- [x] Remove items from the cart
+- [x] Do the checkout
+- [x] Place an order and preview it
+
+### What it doesn't
+
+These ones were not implemented yet:
+
+- [ ] List products by category
+- [ ] List products by tag
+- [ ] List products by attribute
+- [ ] Search and filter products
+- [ ] Show product reviews
+- [ ] Show related products
+- [ ] Handle product collections
+- [ ] Use coupons
+- [ ] Change the payment method ("cheque" is hardcoded)
+- [ ] Show orders after closing or refreshing the app
+
+## Run the demo
+
+To setup and run the Frontity project, simply follow these steps:
+
+- Clone the repository.
+
+  ```bash
+  git clone https://github.com/frontity/woocommerce-proof-of-concept.git
+  cd woocommerce-proof-of-concept
+  ```
+
+- Install the project dependencies.
+
+  ```bash
+  npm install
+  ```
+
+- Run the `npx frontity dev` command to start the project in development mode.
+
+  ```bash
+  npx frontity dev
+  ```
+
+---
+
+## WordPress Setup - _optional_
+
+By default, the Frontity project uses https://woocommerce.frontity.org as the WordPress source. You can check [this message](https://community.frontity.org/t/woocommerce-proof-of-concept/3596/7) in the community to know more about how it is configured. However, if you prefer to use your own instance, you can follow these steps:
 
 - Create a local WordPress instace (you can use [Local](https://localwp.com/) for that).
 
@@ -32,6 +84,8 @@ You need first a WordPress development instance configured following these steps
   - [WooCommerce](https://wordpress.org/plugins/woocommerce/) (tested with v4.8.0)
   - [WooCommerce Blocks](https://wordpress.org/plugins/woo-gutenberg-products-block/) (tested with v4.0.0)
   - [Frontity Embedded Mode - [Proof of Concept]](https://github.com/frontity/frontity-embedded-proof-of-concept/)
+
+    > ⚠️ This plugin is required to avoid cross-site issues. See [this thread](https://community.frontity.org/t/woocommerce-proof-of-concept/3596/9) in the community for more information.
 
 - The following code snippet should be added as well. It disables the nonce check for all of the Store API endpoints that require nonces.
 
@@ -52,24 +106,9 @@ You need first a WordPress development instance configured following these steps
 
 - To add some product examples, you can import the WooCommerce sample data as explained in their [docs](https://docs.woocommerce.com/document/importing-woocommerce-sample-data/).
 
-## Frontity Setup
+- Now, in _"WooCommerce > Settings > Payments"_, enable the _"Check payments"_ method.
 
-To configure the Frontity project:
-
-- Clone the repository.
-
-  ```bash
-  git clone https://github.com/frontity/woocommerce-proof-of-concept.git
-  cd woocommerce-proof-of-concept
-  ```
-
-- Install the project dependencies.
-
-  ```bash
-  npm install
-  ```
-
-- Go to the `frontity.settings.js` file and change the `state.source.url` value inside the `@frontity/wp-source` settings to point to your WordPress instance.
+- After that, go back to the Frontity project and, in the `frontity.settings.js` file, point the `state.source.url` setting inside `@frontity/wp-source` to your WordPress instance.
 
   ```js
   {
@@ -77,17 +116,13 @@ To configure the Frontity project:
     state: {
       source: {
         // Set here the URL to your WordPress instance.
-        url: "http://woocommercepoc.local",
+        url: "http://my-woocommerce.local",
       },
     },
   },
   ```
 
-## Run the demo
-
-To start the Frontity project:
-
-- Run the `npx frontity dev` command. Note that, for the Embedded Mode to work, the `public-path` parameter needs to be specified.
+- To run the project, you should add the `public-path` argument this time.
 
   ```bash
   npx frontity dev --public-path http://localhost:3000/static --dont-open-browser
