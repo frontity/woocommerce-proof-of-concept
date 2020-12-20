@@ -33,7 +33,7 @@ const ItemQuantity: React.FC<ItemQuantityProps> = ({ item }) => {
   );
 };
 
-export default connect(ItemQuantity, { injectProps: false });
+export default connect(ItemQuantity);
 
 const Input = styled.input`
   margin-right: 16px;

@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
-import { connect, styled } from "frontity";
+import { connect, styled, useConnect } from "frontity";
 import Link from "../link";
+import { Packages } from "../../../types";
+import { isArchive } from "@frontity/source";
 
 /**
  * Pagination Component
@@ -10,29 +12,32 @@ import Link from "../link";
  * The `state`, `actions`, `libraries` props are provided by the global context,
  * when we wrap this component in `connect(...)`
  */
-const Pagination = ({ state, actions }) => {
+const Pagination = () => {
+  const { state, actions } = useConnect<Packages>();
   // Get the total posts to be displayed based for the current link
-  const { next, previous } = state.source.get(state.router.link);
+  const data = state.source.get(state.router.link);
+  // Make sure data is an archive.
+  if (!isArchive(data)) return null;
 
   // Pre-fetch the the next page if it hasn't been fetched yet.
   useEffect(() => {
-    if (next) actions.source.fetch(next);
+    if (data.next) actions.source.fetch(data.next);
   }, []);
 
   return (
     <div>
       {/* If there's a next page, render this link */}
-      {next && (
-        <Link link={next}>
+      {data.next && (
+        <Link link={data.next}>
           <Text>← Older posts</Text>
         </Link>
       )}
 
-      {previous && next && " - "}
+      {data.previous && data.next && " - "}
 
       {/* If there's a previous page, render this link */}
-      {previous && (
-        <Link link={previous}>
+      {data.previous && (
+        <Link link={data.previous}>
           <Text>Newer posts →</Text>
         </Link>
       )}

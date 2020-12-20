@@ -5,6 +5,7 @@ import { Packages } from "../../../types";
 
 type OrderProps = {
   data: OrderData;
+  when: boolean;
 };
 
 /**
@@ -30,7 +31,7 @@ const Order: React.FC<OrderProps> = ({ data }) => {
   );
 };
 
-export default connect(Order, { injectProps: false });
+export default connect(Order);
 
 const Container = styled.div`
   width: 600px;

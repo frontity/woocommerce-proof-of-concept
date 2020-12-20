@@ -82,7 +82,7 @@ const AddToCart: React.FC<AddToCartProps> = ({
   );
 };
 
-export default connect(AddToCart, { injectProps: false });
+export default connect(AddToCart);
 
 const Container = styled.div`
   display: flex;

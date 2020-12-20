@@ -6,6 +6,7 @@ import AddToCart from "./add-to-cart";
 
 type ProductProps = {
   data: ProductData;
+  when: boolean;
 };
 
 /**
@@ -54,7 +55,7 @@ const Product: React.FC<ProductProps> = ({ data }) => {
   );
 };
 
-export default connect(Product, { injectProps: false });
+export default connect(Product);
 
 const Container = styled.div`
   width: 800px;

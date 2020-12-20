@@ -9,7 +9,7 @@ import Loading from "../loading";
 /**
  * Component that renders the cart page.
  */
-const Cart: React.FC = () => {
+const Cart: React.FC<{ when: boolean }> = () => {
   // Get the frontity state.
   const { state, actions } = useConnect<Packages>();
 
@@ -77,7 +77,7 @@ const Cart: React.FC = () => {
   );
 };
 
-export default connect(Cart, { injectProps: false });
+export default connect(Cart);
 
 const Container = styled.div`
   width: 600px;

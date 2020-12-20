@@ -1,22 +1,13 @@
+import WooCommerceTheme from "./../types";
 import Theme from "./components";
-import image from "@frontity/html2react/processors/image";
-import iframe from "@frontity/html2react/processors/iframe";
 import link from "@frontity/html2react/processors/link";
 
-const marsTheme = {
-  name: "@frontity/mars-theme",
+const wooCommerceTheme: WooCommerceTheme = {
+  name: "woocommerce-theme",
   roots: {
-    /**
-     * In Frontity, any package can add React components to the site.
-     * We use roots for that, scoped to the `theme` namespace.
-     */
     theme: Theme,
   },
   state: {
-    /**
-     * State is where the packages store their default settings and other
-     * relevant state. It is scoped to the `theme` namespace.
-     */
     theme: {
       autoPrefetch: "in-view",
       menu: [],
@@ -27,11 +18,6 @@ const marsTheme = {
       },
     },
   },
-
-  /**
-   * Actions are functions that modify the state or deal with other parts of
-   * Frontity like libraries.
-   */
   actions: {
     theme: {
       toggleMobileMenu: ({ state }) => {
@@ -49,9 +35,9 @@ const marsTheme = {
        * and internal link inside the content HTML.
        * You can add your own processors too.
        */
-      processors: [image, iframe, link],
+      processors: [link],
     },
   },
 };
 
-export default marsTheme;
+export default wooCommerceTheme;

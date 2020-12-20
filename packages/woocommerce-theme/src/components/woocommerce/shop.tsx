@@ -8,6 +8,7 @@ import AddToCart from "./add-to-cart";
 
 type ShopProps = {
   data: ProductArchiveData;
+  when: boolean;
 };
 
 const Shop: React.FC<ShopProps> = ({ data }) => {
@@ -50,7 +51,7 @@ const Shop: React.FC<ShopProps> = ({ data }) => {
   );
 };
 
-export default connect(Shop, { injectProps: false });
+export default connect(Shop);
 
 const Container = styled.section`
   width: 800px;

@@ -1,14 +1,20 @@
 import React, { useEffect } from "react";
-import { connect, styled } from "frontity";
+import { connect, useConnect, styled } from "frontity";
+import { isPost, isPostType } from "@frontity/source";
+import { Packages } from "../../types";
 import Link from "./link";
 import List from "./list";
 import FeaturedMedia from "./featured-media";
+import { PostEntity } from "@frontity/source/types";
 
-const Post = ({ state, actions, libraries }) => {
+const Post: React.FC<{ when: boolean }> = () => {
+  const { state, actions, libraries } = useConnect<Packages>();
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
+  // Do nothing is this is not a post type.
+  if (!isPostType(data)) return null;
   // Get the data of the post.
-  const post = state.source[data.type][data.id];
+  const post: PostEntity = state.source[data.type][data.id];
   // Get the data of the author.
   const author = state.source.author[post.author];
   // Get a human readable date.
@@ -34,7 +40,7 @@ const Post = ({ state, actions, libraries }) => {
         <Title dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
 
         {/* Only display author and date on posts */}
-        {data.isPost && (
+        {isPost(data) && (
           <div>
             {author && (
               <StyledLink link={author.link}>
@@ -59,7 +65,7 @@ const Post = ({ state, actions, libraries }) => {
       {/* Render the content using the Html2React component so the HTML is processed
        by the processors we included in the libraries.html2react.processors array. */}
       <Content>
-        <Html2React html={post.content.rendered} />
+        <Html2React html={post.content?.rendered} />
       </Content>
     </Container>
   ) : null;

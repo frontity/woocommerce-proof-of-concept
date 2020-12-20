@@ -9,7 +9,7 @@ const MenuModal = ({ state }) => {
   return (
     <>
       <MenuOverlay />
-      <MenuContent as="nav">
+      <MenuContent>
         {isThereLinks &&
           menu.map(([name, link]) => (
             <MenuLink
@@ -36,7 +36,7 @@ const MenuOverlay = styled.div`
   left: 0;
 `;
 
-const MenuContent = styled.div`
+const MenuContent = styled.nav`
   z-index: 3;
 `;
 
