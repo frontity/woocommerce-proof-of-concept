@@ -34,7 +34,7 @@ const settings = {
     },
     "@frontity/tiny-router",
     "@frontity/html2react",
-    "woocommerce",
+    "@frontity/woocommerce",
   ],
 };
 
