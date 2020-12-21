@@ -7,7 +7,7 @@ import List from "./list";
 import FeaturedMedia from "./featured-media";
 import { PostEntity } from "@frontity/source/types";
 
-const Post: React.FC<{ when: boolean }> = () => {
+const Post: React.FC<{ when?: boolean }> = () => {
   const { state, actions, libraries } = useConnect<Packages>();
   // Get information about the current URL.
   const data = state.source.get(state.router.link);

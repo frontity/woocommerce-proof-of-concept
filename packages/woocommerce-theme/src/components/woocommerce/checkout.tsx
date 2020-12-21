@@ -8,7 +8,7 @@ import BillingField from "./billing-field";
 /**
  * Component that renders the checkout page.
  */
-const Checkout: React.FC<{ when: boolean }> = () => {
+const Checkout: React.FC<{ when?: boolean }> = () => {
   // Get the frontity state.
   const { state, actions } = useConnect<Packages>();
   const { cart } = state.woocommerce;

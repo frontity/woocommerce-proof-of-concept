@@ -6,13 +6,7 @@ import Link from "../link";
 import Pagination from "../list/pagination";
 import AddToCart from "./add-to-cart";
 
-type ShopProps = {
-  data: ProductArchiveData;
-  when: boolean;
-};
-
-const Shop: React.FC<ShopProps> = ({ data }) => {
-  // Get frontity state.
+const Shop: React.FC<{ when?: boolean }> = () => {
   const { state } = useConnect<Packages>();
   const data = state.source.get(state.router.link);
   if (!isProductArchive(data)) return null;
@@ -24,10 +18,11 @@ const Shop: React.FC<ShopProps> = ({ data }) => {
         {data.items.map(({ id }) => {
           const product = state.source.product[id];
           const [image] = product.images;
+          const link = new URL(product.permalink).pathname;
 
           return (
             <Product key={product.id}>
-              <Link link={new URL(product.permalink).pathname}>
+              <Link link={link}>
                 {product.on_sale && <OnSale>Sale!</OnSale>}
                 <Img
                   width="450"

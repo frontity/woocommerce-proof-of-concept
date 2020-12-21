@@ -52,11 +52,11 @@ const Theme = ({ state }) => {
       <Main>
         <Switch>
           <Loading when={data.isFetching} />
-          <Product when={isProduct(data)} data={data} />
-          <Shop when={isProductArchive(data)} data={data} />
+          <Product when={isProduct(data)} />
+          <Shop when={isProductArchive(data)} />
           <Cart when={isCart(data)} />
           <Checkout when={isCheckout(data)} />
-          <Order when={isOrder(data)} data={data} />
+          <Order when={isOrder(data)} />
           <List when={isArchive(data)} />
           <Post when={isPostType(data)} />
           <PageError when={isError(data)} />

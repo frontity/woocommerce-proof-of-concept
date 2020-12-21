@@ -1,4 +1,4 @@
-import { batch, fetch } from "frontity";
+import { batch } from "frontity";
 import merge from "lodash.merge";
 import WooCommerce, { Checkout } from "../types";
 import ProductHandler from "./handlers/product";

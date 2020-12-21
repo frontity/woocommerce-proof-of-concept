@@ -21,7 +21,7 @@ const description = (
 );
 
 // The 404 page component
-const Page404: React.FC<{ when: boolean }> = () => {
+const Page404: React.FC<{ when?: boolean }> = () => {
   const { state } = useConnect<Packages>();
   const data = state.source.get(state.router.link);
   if (!isError(data)) return null;

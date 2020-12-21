@@ -4,28 +4,13 @@ import { isProduct } from "@frontity/woocommerce";
 import { Packages } from "../../../types";
 import AddToCart from "./add-to-cart";
 
-type ProductProps = {
-  data: ProductData;
-  when: boolean;
-};
-
-/**
- * Component that renders a product page.
- *
- * @param props - Object of type {@link ProductProps}.
- */
-const Product: React.FC<ProductProps> = ({ data }) => {
-  // Get the frontity state.
+const Product: React.FC<{ when?: boolean }> = () => {
   const { state } = useConnect<Packages>();
   const data = state.source.get(state.router.link);
   if (!isProduct(data)) return null;
 
   // Get the data of the product.
   const product = state.source.product[data.id];
-
-  // Return nothing if the product is not ready yet.
-  if (!data.isReady) return null;
-
   const [image] = product.images;
 
   return (

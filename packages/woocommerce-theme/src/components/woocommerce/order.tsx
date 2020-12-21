@@ -3,18 +3,7 @@ import { connect, useConnect, styled } from "frontity";
 import { isOrder } from "@frontity/woocommerce";
 import { Packages } from "../../../types";
 
-type OrderProps = {
-  data: OrderData;
-  when: boolean;
-};
-
-/**
- * Component that renders an order page.
- *
- * @param props - Object of type {@link OrderProps}.
- */
-const Order: React.FC<OrderProps> = ({ data }) => {
-  // Get the frontity state.
+const Order: React.FC<{ when?: boolean }> = () => {
   const { state } = useConnect<Packages>();
   const data = state.source.get(state.router.link);
   if (!isOrder(data)) return null;

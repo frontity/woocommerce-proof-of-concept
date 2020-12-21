@@ -9,7 +9,7 @@ import Loading from "../loading";
 /**
  * Component that renders the cart page.
  */
-const Cart: React.FC<{ when: boolean }> = () => {
+const Cart: React.FC<{ when?: boolean }> = () => {
   // Get the frontity state.
   const { state, actions } = useConnect<Packages>();
 

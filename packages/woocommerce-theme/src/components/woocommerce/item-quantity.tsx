@@ -3,11 +3,7 @@ import { connect, useConnect, styled } from "frontity";
 import { CartItem } from "@frontity/woocommerce/types";
 import { Packages } from "../../../types";
 
-type ItemQuantityProps = {
-  item: CartItem;
-};
-
-const ItemQuantity: React.FC<ItemQuantityProps> = ({ item }) => {
+const ItemQuantity: React.FC<{ item: CartItem }> = ({ item }) => {
   const { actions } = useConnect<Packages>();
   return (
     <Input
