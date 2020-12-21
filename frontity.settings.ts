@@ -1,4 +1,9 @@
-const settings = {
+import { Settings } from "frontity/types";
+import Source from "@frontity/source/types";
+import WooCommerce from "@frontity/woocommerce/types";
+import WooCommerceTheme from "woocommerce-theme/types";
+
+const settings: Settings<Source | WooCommerce | WooCommerceTheme> = {
   name: "woocommerce-poc",
   state: {
     frontity: {
@@ -17,10 +22,7 @@ const settings = {
             ["Shop", "/shop"],
             ["Cart", "/cart"],
           ],
-          featured: {
-            showOnList: false,
-            showOnPost: false,
-          },
+          autoPrefetch: "hover",
         },
       },
     },

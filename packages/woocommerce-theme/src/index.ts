@@ -9,7 +9,7 @@ const wooCommerceTheme: WooCommerceTheme = {
   },
   state: {
     theme: {
-      autoPrefetch: "in-view",
+      autoPrefetch: "no",
       menu: [],
       isMobileMenuOpen: false,
       featured: {
