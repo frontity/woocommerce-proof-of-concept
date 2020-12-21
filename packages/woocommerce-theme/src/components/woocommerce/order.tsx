@@ -9,7 +9,7 @@ const Order: React.FC<{ when?: boolean }> = () => {
   if (!isOrder(data)) return null;
 
   // Get the order information from the store, if it exists.
-  const order = state.source.order[data.id];
+  const order = state.woocommerce.order[data.id];
 
   return (
     <Container>

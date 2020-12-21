@@ -81,10 +81,11 @@ const wooCommerce: WooCommerce = {
         payment_method: "cheque",
         customer_note: "",
       },
+
+      order: {},
     },
     source: {
       product: {},
-      order: {},
     },
   },
   actions: {
@@ -205,7 +206,7 @@ const wooCommerce: WooCommerce = {
         const { cart } = state.woocommerce;
 
         // Create an order entity putting all the information together.
-        state.source.order[checkout.order_id] = { checkout, cart };
+        state.woocommerce.order[checkout.order_id] = { checkout, cart };
 
         // Get the current cart from the REST API. It should be empty now. We
         // don't need to wait for the response here.

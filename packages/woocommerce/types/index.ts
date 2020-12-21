@@ -28,11 +28,6 @@ interface WooCommerce extends Package {
        * Map of populated products, by ID.
        */
       product: Record<number, ProductEntity>;
-
-      /**
-       * Map of populated orders, by ID.
-       */
-      order: Record<number, OrderEntity>;
     };
 
     /**
@@ -61,6 +56,11 @@ interface WooCommerce extends Package {
         customer_note: string;
         payment_method: string;
       };
+
+      /**
+       * Map of populated orders, by ID.
+       */
+      order: Record<number, OrderEntity>;
     };
   };
 
