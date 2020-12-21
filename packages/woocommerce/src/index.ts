@@ -12,6 +12,7 @@ const wooCommerce: WooCommerce = {
   name: "woocommerce",
   state: {
     woocommerce: {
+      isCartReady: false,
       // The cart is initialized in the client side rendering (`afterCSR`).
       cart: {
         coupons: [],
@@ -47,12 +48,12 @@ const wooCommerce: WooCommerce = {
         needs_shipping: false,
         has_calculated_shipping: false,
         totals: {
-          total_items: "",
+          total_items: "0",
           total_items_tax: "",
-          total_fees: "",
+          total_fees: "0",
           total_fees_tax: "",
-          total_discount: "",
-          total_discount_tax: "",
+          total_discount: "0",
+          total_discount_tax: "0",
           total_shipping: "",
           total_shipping_tax: "",
           total_price: "",
@@ -90,6 +91,7 @@ const wooCommerce: WooCommerce = {
     woocommerce: {
       getCart: async ({ state }) => {
         state.woocommerce.cart = await storeApi({ state, endpoint: "cart" });
+        state.woocommerce.isCartReady = true;
       },
 
       addItemToCart: ({ state }) => async ({ id, quantity }) => {

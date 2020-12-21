@@ -40,6 +40,11 @@ interface WooCommerce extends Package {
      */
     woocommerce: {
       /**
+       * Whether the cart is ready or not.
+       */
+      isCartReady: boolean;
+
+      /**
        * Object with the current state of the cart.
        */
       cart: Cart;

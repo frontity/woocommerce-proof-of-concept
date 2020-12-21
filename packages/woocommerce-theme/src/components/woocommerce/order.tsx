@@ -16,6 +16,7 @@ const Order: React.FC<{ when?: boolean }> = () => {
       <h2>Order received</h2>
       <p>Thank you. Your order has been received.</p>
       <div>
+        {/* TODO: Improve the way we show the order data. */}
         <pre>{JSON.stringify(order, null, 2)}</pre>
       </div>
     </Container>

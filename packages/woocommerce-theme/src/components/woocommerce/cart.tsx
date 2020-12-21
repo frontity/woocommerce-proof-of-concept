@@ -14,10 +14,10 @@ const Cart: React.FC<{ when?: boolean }> = () => {
   const { state, actions } = useConnect<Packages>();
 
   // Get the data of the product.
-  const { cart } = state.woocommerce;
+  const { cart, isCartReady } = state.woocommerce;
 
-  // If there's no cart yet, just return null.
-  if (!cart) return <Loading />;
+  // If there's no cart yet show the loading.
+  if (!isCartReady) return <Loading />;
 
   return (
     <Container>

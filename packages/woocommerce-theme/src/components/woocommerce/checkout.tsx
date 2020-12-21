@@ -11,10 +11,10 @@ import BillingField from "./billing-field";
 const Checkout: React.FC<{ when?: boolean }> = () => {
   // Get the frontity state.
   const { state, actions } = useConnect<Packages>();
-  const { cart } = state.woocommerce;
+  const { cart, isCartReady } = state.woocommerce;
 
-  // If there's no cart yet, just return null.
-  if (!cart) return <Loading />;
+  // If there's no cart yet show the loading.
+  if (!isCartReady) return <Loading />;
 
   // If cart is empty, return a message and a "go to shop" button.
   if (cart.items.length === 0)
