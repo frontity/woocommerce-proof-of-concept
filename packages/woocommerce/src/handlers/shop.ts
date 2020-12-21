@@ -1,4 +1,3 @@
-import { batch } from "frontity";
 import { Pattern, Handler } from "@frontity/wp-source/types";
 import { Packages } from "../../types";
 import { isProductEntity } from "../type-guards";
@@ -49,19 +48,17 @@ const ShopHandler: Pattern<Handler<Packages>> = {
       libraries.source.stringify({ ...linkParams, page });
 
     // Populate the data object.
-    batch(() =>
-      Object.assign(state.source.data[link], {
-        isArchive: true,
-        isProductArchive: true,
-        type: "product",
-        items,
-        total,
-        totalPages,
-        // Add next and previous if they exist.
-        ...(hasOlderPosts && { previous: getPageLink(linkParams.page - 1) }),
-        ...(hasNewerPosts && { next: getPageLink(linkParams.page + 1) }),
-      })
-    );
+    Object.assign(state.source.data[link], {
+      isArchive: true,
+      isProductArchive: true,
+      type: "product",
+      items,
+      total,
+      totalPages,
+      // Add next and previous if they exist.
+      ...(hasOlderPosts && { previous: getPageLink(linkParams.page - 1) }),
+      ...(hasNewerPosts && { next: getPageLink(linkParams.page + 1) }),
+    });
   },
 };
 

@@ -1,4 +1,3 @@
-import { batch } from "frontity";
 import { Pattern, Handler } from "@frontity/wp-source/types";
 import { Packages } from "../../types";
 import { isProductEntity } from "../type-guards";
@@ -8,7 +7,7 @@ const ProductHandler: Pattern<Handler<Packages>> = {
   name: "product",
   priority: 10,
   pattern: "/product/:slug/",
-  func: async ({ link, params, state, libraries, force }) => {
+  func: async ({ link, params, state, libraries }) => {
     // First, check if the product is already populated.
     let product = Object.values(state.source.product).find(({ permalink }) =>
       permalink.endsWith(link)
@@ -48,13 +47,11 @@ const ProductHandler: Pattern<Handler<Packages>> = {
     }
 
     // Populate the data object.
-    batch(() =>
-      Object.assign(state.source.data[link], {
-        isProduct: true,
-        id: product.id,
-        sku: product.sku,
-      })
-    );
+    Object.assign(state.source.data[link], {
+      isProduct: true,
+      id: product.id,
+      sku: product.sku,
+    });
   },
 };
 

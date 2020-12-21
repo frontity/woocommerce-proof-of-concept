@@ -1,4 +1,3 @@
-import { batch } from "frontity";
 import { Pattern, Handler } from "@frontity/wp-source/types";
 import { Packages } from "../../types";
 
@@ -7,12 +6,10 @@ const OrderHandler: Pattern<Handler<Packages>> = {
   priority: 10,
   pattern: "/checkout/order-received/:id(\\d+)/",
   func: async ({ link, params, state }) => {
-    batch(() =>
-      Object.assign(state.source.data[link], {
-        isOrder: true,
-        id: params.id,
-      })
-    );
+    Object.assign(state.source.data[link], {
+      isOrder: true,
+      id: params.id,
+    });
   },
 };
 
