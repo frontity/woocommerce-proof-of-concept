@@ -12,14 +12,71 @@ const wooCommerce: WooCommerce = {
   name: "woocommerce",
   state: {
     woocommerce: {
-      // The cart is initialized in the SSR.
-      cart: null,
+      // The cart is initialized in the client side rendering (`afterCSR`).
+      cart: {
+        coupons: [],
+        shipping_rates: [],
+        shipping_address: {
+          first_name: "",
+          last_name: "",
+          company: "",
+          address_1: "",
+          address_2: "",
+          city: "",
+          state: "",
+          postcode: "",
+          country: "",
+        },
+        billing_address: {
+          first_name: "",
+          last_name: "",
+          company: "",
+          address_1: "",
+          address_2: "",
+          city: "",
+          state: "",
+          postcode: "",
+          country: "",
+          email: "",
+          phone: "",
+        },
+        items: [],
+        items_count: 0,
+        items_weight: 0,
+        needs_payment: false,
+        needs_shipping: false,
+        has_calculated_shipping: false,
+        totals: {
+          total_items: "",
+          total_items_tax: "",
+          total_fees: "",
+          total_fees_tax: "",
+          total_discount: "",
+          total_discount_tax: "",
+          total_shipping: "",
+          total_shipping_tax: "",
+          total_price: "",
+          total_tax: "",
+          tax_lines: [],
+          currency_code: "",
+          currency_symbol: "",
+          currency_minor_unit: 0,
+          currency_decimal_separator: "",
+          currency_thousand_separator: "",
+          currency_prefix: "",
+          currency_suffix: "",
+        },
+        errors: [],
+        extensions: {},
+      },
 
-      // The checkout is null by default.
       checkout: {
+        // The billing_address is stored in the cart. This is just a pointer.
         billing_address: ({ state }) => state.woocommerce.cart?.billing_address,
+        // The shipping_address is stored in the cart. This is just a pointer.
         shipping_address: ({ state }) =>
           state.woocommerce.cart?.shipping_address,
+        // Payment method is currently hardcoded to "cheque".
         payment_method: "cheque",
         customer_note: "",
       },
