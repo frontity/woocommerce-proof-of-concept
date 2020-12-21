@@ -1,6 +1,6 @@
 import React from "react";
 import { connect, useConnect, styled } from "frontity";
-import { ProductData } from "woocommerce/types";
+import { isProduct } from "@frontity/woocommerce";
 import { Packages } from "../../../types";
 import AddToCart from "./add-to-cart";
 
@@ -17,6 +17,8 @@ type ProductProps = {
 const Product: React.FC<ProductProps> = ({ data }) => {
   // Get the frontity state.
   const { state } = useConnect<Packages>();
+  const data = state.source.get(state.router.link);
+  if (!isProduct(data)) return null;
 
   // Get the data of the product.
   const product = state.source.product[data.id];

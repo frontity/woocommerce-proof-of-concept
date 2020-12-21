@@ -1,7 +1,8 @@
 {
-  "name": "woocommerce",
+  "name": "@frontity/woocommerce",
   "version": "0.1.0",
   "description": "Integrate Frontity with WooCommerce",
+  "main": "src/index",
   "keywords": [
     "frontity",
     "frontity-woocommerce"

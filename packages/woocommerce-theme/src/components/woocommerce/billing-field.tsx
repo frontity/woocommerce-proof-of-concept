@@ -1,7 +1,7 @@
 import React from "react";
 import { connect, useConnect, styled } from "frontity";
 import { Packages } from "../../../types";
-import { BillingAddress } from "woocommerce/types";
+import { BillingAddress } from "@frontity/woocommerce/types";
 import { debounce } from "ts-debounce";
 
 type BillingFieldProps = {

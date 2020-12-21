@@ -1,6 +1,6 @@
 import React from "react";
 import { connect, useConnect, styled } from "frontity";
-import { ProductEntity } from "woocommerce/types";
+import { ProductEntity } from "@frontity/woocommerce/types";
 import { Packages } from "../../../types";
 import Link from "../link";
 

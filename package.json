@@ -23,7 +23,7 @@
     "@frontity/wp-source": "^1.10.0",
     "@types/react": "^17.0.0",
     "frontity": "^1.13.0",
-    "woocommerce": "file:packages/woocommerce",
+    "@frontity/woocommerce": "file:packages/woocommerce",
     "woocommerce-theme": "file:packages/woocommerce-theme"
   }
 }

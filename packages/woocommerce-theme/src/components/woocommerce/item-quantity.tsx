@@ -1,6 +1,6 @@
 import React from "react";
 import { connect, useConnect, styled } from "frontity";
-import { CartItem } from "woocommerce/types";
+import { CartItem } from "@frontity/woocommerce/types";
 import { Packages } from "../../../types";
 
 type ItemQuantityProps = {

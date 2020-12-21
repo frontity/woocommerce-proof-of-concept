@@ -1,6 +1,6 @@
 import React from "react";
 import { connect, useConnect, styled } from "frontity";
-import { OrderData } from "woocommerce/types";
+import { isOrder } from "@frontity/woocommerce";
 import { Packages } from "../../../types";
 
 type OrderProps = {
@@ -16,6 +16,8 @@ type OrderProps = {
 const Order: React.FC<OrderProps> = ({ data }) => {
   // Get the frontity state.
   const { state } = useConnect<Packages>();
+  const data = state.source.get(state.router.link);
+  if (!isOrder(data)) return null;
 
   // Get the order information from the store, if it exists.
   const order = state.source.order[data.id];
