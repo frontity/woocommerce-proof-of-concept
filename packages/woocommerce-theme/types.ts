@@ -78,12 +78,12 @@ interface WooCommerceTheme extends Package {
       /**
        * Toggles the mobile menu between opened and closed states.
        */
-      toggleMobileMenu: Action<WooCommerceTheme>;
+      toggleMobileMenu: Action<Packages>;
 
       /**
        * Closes the mobile menu, not matter the previous state.
        */
-      closeMobileMenu: Action<WooCommerceTheme>;
+      closeMobileMenu: Action<Packages>;
     };
   };
 
