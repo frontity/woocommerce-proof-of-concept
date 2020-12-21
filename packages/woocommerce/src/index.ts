@@ -95,7 +95,7 @@ const wooCommerce: WooCommerce = {
         const { billing_address, shipping_address } = state.woocommerce.cart;
 
         // Send the updated values and get the cart updated back.
-        state.woocommerce.cart = await storeApi({
+        await storeApi({
           state,
           endpoint: "cart/update-customer",
           method: "POST",
