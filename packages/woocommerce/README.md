@@ -1,8 +1,8 @@
-# `woocommerce-theme`
+# `@frontity/woocommerce`
 
-A starter theme for Frontity and WooCommerce. It is based on `mars-theme`.
+A proof of concept of a possible `@frontity/woocommerce` package.
 
-Full info about `mars-theme` can be found in the [docs](https://docs.frontity.org/frontity-themes/frontity-mars-theme)
+> ⚠️ This is not a real package and it is not published on npm yet. The only way to test it is by cloning this repository.
 
 The proof of concept conversation can be followed here: https://community.frontity.org/t/woocommerce-proof-of-concept/3596
 
@@ -28,36 +28,13 @@ This theme is not published on npm yet, so the only way to install it is from th
 
 Once installed it should be included in your `frontity.settings.js`.
 
-The theme options can be specified in the `state.theme` property.
-
-```javascript
-{
-  name: "@frontity/mars-theme",
-  state: {
-    theme: {
-      menu: [
-        ["Home", "/"],
-        ["Nature", "/category/nature/"],
-        ["Travel", "/category/travel/"],
-        ["Japan", "/tag/japan/"],
-        ["About Us", "/about-us/"]
-      ],
-      featured: {
-        showOnList: true,
-        showOnPost: true
-      }
-    }
-  }
-},
-```
-
-This theme doesn't include any new option apart from the original `mars-theme` options.
+This package doesn't include any settings yet.
 
 ## Feature Discussions
 
 [**Feature Discussions**](https://community.frontity.org/c/feature-discussions/33) about Frontity are public. You can join the discussions, vote for those you're interested in or create new ones.
 
-These are the ones related to this package: https://community.frontity.org/t/woocommerce-proof-of-concept/3596
+This is the one related to this package: https://community.frontity.org/t/woocommerce-proof-of-concept/3596/7
 
 ## Changelog
 
