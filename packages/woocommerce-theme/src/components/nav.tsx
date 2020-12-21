@@ -10,6 +10,7 @@ import { Packages } from "../../types";
  */
 const Nav = () => {
   const { state } = useConnect<Packages>();
+
   return (
     <NavContainer>
       {state.theme.menu.map(([name, link]) => {
@@ -24,6 +25,31 @@ const Nav = () => {
           </NavItem>
         );
       })}
+
+      {/* Show the number of items in the cart. */}
+      <NavItem key={"Cart"}>
+        <Link
+          link={"/cart/"}
+          aria-current={state.router.link === "/cart/" ? "page" : undefined}
+        >
+          Cart ({state.woocommerce.cart.items.length})
+        </Link>
+      </NavItem>
+
+      {/* Show the Checkout in the menu if there is at least one product in the
+      cart. */}
+      {state.woocommerce.cart.items.length > 0 && (
+        <NavItem key={"Checkout"}>
+          <Link
+            link={"/checkout/"}
+            aria-current={
+              state.router.link === "/checkout/" ? "page" : undefined
+            }
+          >
+            Checkout
+          </Link>
+        </NavItem>
+      )}
     </NavContainer>
   );
 };

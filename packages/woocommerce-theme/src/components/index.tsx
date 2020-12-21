@@ -52,11 +52,13 @@ const Theme = ({ state }) => {
       <Main>
         <Switch>
           <Loading when={data.isFetching} />
+          {/* These are the new pages introduced for WooCommerce */}
           <Product when={isProduct(data)} />
           <Shop when={isProductArchive(data)} />
           <Cart when={isCart(data)} />
           <Checkout when={isCheckout(data)} />
           <Order when={isOrder(data)} />
+          {/* These are the normal WordPress pages */}
           <List when={isArchive(data)} />
           <Post when={isPostType(data)} />
           <PageError when={isError(data)} />

@@ -20,7 +20,6 @@ const settings: Settings<Source | WooCommerce | WooCommerceTheme> = {
           menu: [
             ["Home", "/"],
             ["Shop", "/shop/"],
-            ["Cart", "/cart/"],
           ],
           autoPrefetch: "hover",
         },

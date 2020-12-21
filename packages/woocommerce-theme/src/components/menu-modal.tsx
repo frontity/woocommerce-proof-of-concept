@@ -1,8 +1,10 @@
 import React from "react";
-import { styled, connect } from "frontity";
+import { styled, connect, useConnect } from "frontity";
 import Link from "./link";
+import { Packages } from "../../types";
 
-const MenuModal = ({ state }) => {
+const MenuModal = () => {
+  const { state } = useConnect<Packages>();
   const { menu } = state.theme;
   const isThereLinks = menu != null && menu.length > 0;
 
@@ -20,6 +22,9 @@ const MenuModal = ({ state }) => {
               {name}
             </MenuLink>
           ))}
+        <MenuLink key={"cart"} link={"/cart/"}>
+          Cart ({state.woocommerce.cart.items.length})
+        </MenuLink>
       </MenuContent>
     </>
   );
