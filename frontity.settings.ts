@@ -7,9 +7,9 @@ const settings: Settings<Source | WooCommerce | WooCommerceTheme> = {
   name: "woocommerce-poc",
   state: {
     frontity: {
-      url: "https://test.frontity.org",
-      title: "Test Frontity Blog",
-      description: "WordPress installation for Frontity development",
+      url: "https://woocommerce.frontity.org",
+      title: "WooCommerce & Frontity",
+      description: "A proof of concept of Frontity and WooCommerce together",
     },
   },
   packages: [
@@ -21,7 +21,7 @@ const settings: Settings<Source | WooCommerce | WooCommerceTheme> = {
             ["Home", "/"],
             ["Shop", "/shop/"],
           ],
-          autoPrefetch: "hover",
+          autoPrefetch: "in-view",
         },
       },
     },
