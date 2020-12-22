@@ -7,6 +7,7 @@ const MenuModal = () => {
   const { state } = useConnect<Packages>();
   const { menu } = state.theme;
   const isThereLinks = menu != null && menu.length > 0;
+  const itemsCount = state.woocommerce.cart.items_count;
 
   return (
     <>
@@ -23,7 +24,7 @@ const MenuModal = () => {
             </MenuLink>
           ))}
         <MenuLink key={"cart"} link={"/cart/"}>
-          Cart ({state.woocommerce.cart.items.length})
+          Cart {!!itemsCount && `(${itemsCount})`}
         </MenuLink>
       </MenuContent>
     </>

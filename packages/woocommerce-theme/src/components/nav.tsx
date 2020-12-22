@@ -10,6 +10,7 @@ import { Packages } from "../../types";
  */
 const Nav = () => {
   const { state } = useConnect<Packages>();
+  const itemsCount = state.woocommerce.cart.items_count;
 
   return (
     <NavContainer>
@@ -32,13 +33,13 @@ const Nav = () => {
           link={"/cart/"}
           aria-current={state.router.link === "/cart/" ? "page" : undefined}
         >
-          Cart ({state.woocommerce.cart.items.length})
+          Cart {!!itemsCount && `(${itemsCount})`}
         </Link>
       </NavItem>
 
       {/* Show the Checkout in the menu if there is at least one product in the
       cart. */}
-      {state.woocommerce.cart.items.length > 0 && (
+      {itemsCount > 0 && (
         <NavItem key={"Checkout"}>
           <Link
             link={"/checkout/"}
