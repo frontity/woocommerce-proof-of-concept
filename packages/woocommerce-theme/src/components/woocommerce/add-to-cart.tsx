@@ -21,7 +21,7 @@ const AddToCart: React.FC<AddToCartProps> = ({
   const { text, description, url } = add_to_cart;
 
   // Get the item and its current quantity.
-  const item = state.woocommerce.cart?.items?.find((p) => p.id === id);
+  const item = state.woocommerce.cart.items.find((p) => p.id === id);
   const currentQuantity = item ? item.quantity : 0;
 
   // Save an internal counter. The value in the cart is updated when the button
@@ -30,6 +30,12 @@ const AddToCart: React.FC<AddToCartProps> = ({
 
   // Internal value to know if an action is peding.
   const [isPending, setIsPending] = React.useState(false);
+
+  const addToCart = React.useCallback(async () => {
+    setIsPending(true);
+    await actions.woocommerce.addItemToCart({ id, quantity });
+    setIsPending(false);
+  }, []);
 
   return (
     <Container>
@@ -52,18 +58,7 @@ const AddToCart: React.FC<AddToCartProps> = ({
       )}
       {type === "simple" ? (
         <ButtonContainer>
-          <Button
-            title={description}
-            disabled={isPending}
-            onClick={async () => {
-              // Do nothing if a task is pending.
-              if (isPending) return;
-
-              setIsPending(true);
-              await actions.woocommerce.addItemToCart({ id, quantity });
-              setIsPending(false);
-            }}
-          >
+          <Button title={description} disabled={isPending} onClick={addToCart}>
             {isPending ? "Adding to cart..." : text}
           </Button>
           <Quantity css={{ opacity: currentQuantity ? 1 : 0 }}>
