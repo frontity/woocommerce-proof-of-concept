@@ -24,14 +24,15 @@ const Checkout: React.FC<BillingFieldProps> = ({
   const value = state.woocommerce.cart.billing_address[field];
 
   // Debounced function to update the billing info in the server.
-  const updateBillingField = React.useRef(
+  const updateBillingField = React.useCallback(
     debounce((value: string) => {
       actions.woocommerce.updateCustomer({
         billingAddress: {
           [field]: value,
         },
       });
-    }, 1000)
+    }, 1000),
+    []
   );
 
   return (
@@ -47,8 +48,7 @@ const Checkout: React.FC<BillingFieldProps> = ({
 
           // Then, call the debounced method to update it in the server.
           e.target.checkValidity();
-          if (e.target.reportValidity())
-            updateBillingField.current(e.target.value);
+          if (e.target.reportValidity()) updateBillingField(e.target.value);
         }}
         {...inputProps}
       />
