@@ -12,7 +12,6 @@
     "@frontity/router": "^1.1.2",
     "@frontity/source": "^1.4.0",
     "@frontity/wp-source": "^1.10.0",
-    "frontity": "^1.13.0",
-    "lodash.merge": "^4.6.2"
+    "frontity": "^1.13.0"
   }
 }

@@ -1,4 +1,3 @@
-import merge from "lodash.merge";
 import WooCommerce, { Checkout } from "../types";
 import ProductHandler from "./handlers/product";
 import ShopHandler from "./handlers/shop";
@@ -150,8 +149,14 @@ const wooCommerce: WooCommerce = {
       }) => {
         // First, update the current state. This would be overwritten with the
         // REST API response but we can show the changes in advance.
-        merge(state.woocommerce.cart.billing_address, billingAddress);
-        merge(state.woocommerce.cart.shipping_address, shippingAddress);
+        state.woocommerce.cart.billing_address = {
+          ...state.woocommerce.cart.billing_address,
+          ...billingAddress,
+        };
+        state.woocommerce.cart.shipping_address = {
+          ...state.woocommerce.cart.shipping_address,
+          ...shippingAddress,
+        };
 
         // Get updated values from the state.
         const { billing_address, shipping_address } = state.woocommerce.cart;
