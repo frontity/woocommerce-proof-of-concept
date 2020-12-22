@@ -1,4 +1,4 @@
-# frontity-woocommerce-poc
+# woocommerce-poc
 
 ## 0.1.0
 

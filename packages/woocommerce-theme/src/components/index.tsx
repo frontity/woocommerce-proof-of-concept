@@ -8,7 +8,7 @@ import {
   isCart,
   isCheckout,
   isOrder,
-} from "frontity-woocommerce-poc";
+} from "woocommerce-poc";
 import Header from "./header";
 import List from "./list";
 import Post from "./post";

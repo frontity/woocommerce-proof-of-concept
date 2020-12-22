@@ -37,21 +37,19 @@ The theme options can be specified in the `state.theme` property.
     theme: {
       menu: [
         ["Home", "/"],
-        ["Nature", "/category/nature/"],
-        ["Travel", "/category/travel/"],
-        ["Japan", "/tag/japan/"],
-        ["About Us", "/about-us/"]
+        ["Shop", "/shop/"],
       ],
       featured: {
         showOnList: true,
         showOnPost: true
-      }
+      },
+      autoPrefetch: "in-view"
     }
   }
 },
 ```
 
-This theme doesn't include any new option apart from the original `mars-theme` options.
+This theme doesn't include any new option apart from the original `mars-theme` options. It adds both the Cart and the Checkout to the menu.
 
 ## Feature Discussions
 
@@ -61,7 +59,7 @@ These are the ones related to this package: https://community.frontity.org/t/woo
 
 ## Changelog
 
-This theme doesn't have a changelog yet.
+https://github.com/frontity/woocommerce-proof-of-concept/blob/main/packages/woocommerce-theme/CHANGELOG.md
 
 ---
 

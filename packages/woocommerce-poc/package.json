@@ -1,5 +1,5 @@
 {
-  "name": "frontity-woocommerce-poc",
+  "name": "woocommerce-poc",
   "version": "0.1.0",
   "private": true,
   "description": "Integrate Frontity with WooCommerce",

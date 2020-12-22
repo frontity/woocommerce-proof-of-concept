@@ -4,7 +4,7 @@ import { Packages } from "../../../types";
 import Link from "../link";
 import Pagination from "../list/pagination";
 import AddToCart from "./add-to-cart";
-import { ProductArchiveData } from "frontity-woocommerce-poc/types";
+import { ProductArchiveData } from "woocommerce-poc/types";
 
 interface Props {
   when?: boolean;

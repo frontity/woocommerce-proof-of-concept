@@ -1,6 +1,6 @@
-# `frontity-woocommerce-poc`
+# `woocommerce-poc`
 
-A proof of concept of a possible `frontity-woocommerce-poc` package.
+A proof of concept of a possible `@frontity/woocommerce` package.
 
 > ⚠️ This is not a real package and it is not published on npm yet. The only way to test it is by cloning this repository.
 
@@ -22,7 +22,7 @@ The proof of concept conversation can be followed here: https://community.fronti
 
 ## Install
 
-This theme is not published on npm yet, so the only way to install it is from this repo.
+This package is not published on npm yet, so the only way to install it is from this repo.
 
 ## Usage
 
@@ -38,7 +38,7 @@ This is the one related to this package: https://community.frontity.org/t/woocom
 
 ## Changelog
 
-This theme doesn't have a changelog yet.
+https://github.com/frontity/woocommerce-proof-of-concept/blob/main/packages/woocommerce-poc/CHANGELOG.md
 
 ---
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect, useConnect, styled } from "frontity";
 import { Packages } from "../../../types";
-import { OrderData } from "frontity-woocommerce-poc/types";
+import { OrderData } from "woocommerce-poc/types";
 
 interface Props {
   when?: boolean;
