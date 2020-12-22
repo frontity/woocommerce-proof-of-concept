@@ -13,7 +13,6 @@ import Header from "./header";
 import List from "./list";
 import Post from "./post";
 import Loading from "./loading";
-import Title from "./title";
 import PageError from "./page-error";
 import Product from "./woocommerce/product";
 import Shop from "./woocommerce/shop";
@@ -32,7 +31,6 @@ const Theme = ({ state }) => {
   return (
     <>
       {/* Add some metatags to the <head> of the HTML. */}
-      <Title />
       <Head>
         <meta name="description" content={state.frontity.description} />
         <html lang="en" />
