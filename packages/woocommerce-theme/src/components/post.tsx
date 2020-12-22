@@ -1,18 +1,19 @@
 import React, { useEffect } from "react";
 import { connect, useConnect, styled } from "frontity";
-import { isPost, isPostType } from "@frontity/source";
+import { isPost } from "@frontity/source";
 import { Packages } from "../../types";
 import Link from "./link";
 import List from "./list";
 import FeaturedMedia from "./featured-media";
-import { PostEntity } from "@frontity/source/types";
+import { PostEntity, PostTypeData } from "@frontity/source/types";
 
-const Post: React.FC<{ when?: boolean }> = () => {
+interface Props {
+  when?: boolean;
+  data: PostTypeData;
+}
+
+const Post: React.FC<Props> = ({ data }) => {
   const { state, actions, libraries } = useConnect<Packages>();
-  // Get information about the current URL.
-  const data = state.source.get(state.router.link);
-  // Do nothing is this is not a post type.
-  if (!isPostType(data)) return null;
   // Get the data of the post.
   const post: PostEntity = state.source[data.type][data.id];
   // Get the data of the author.

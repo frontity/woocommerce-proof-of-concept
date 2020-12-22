@@ -1,15 +1,18 @@
 import React from "react";
 import { connect, useConnect, styled } from "frontity";
-import { isProductArchive } from "@frontity/woocommerce";
 import { Packages } from "../../../types";
 import Link from "../link";
 import Pagination from "../list/pagination";
 import AddToCart from "./add-to-cart";
+import { ProductArchiveData } from "@frontity/woocommerce/types";
 
-const Shop: React.FC<{ when?: boolean }> = () => {
+interface Props {
+  when?: boolean;
+  data: ProductArchiveData;
+}
+
+const Shop: React.FC<Props> = ({ data }) => {
   const { state } = useConnect<Packages>();
-  const data = state.source.get(state.router.link);
-  if (!isProductArchive(data)) return null;
 
   return (
     <Container>

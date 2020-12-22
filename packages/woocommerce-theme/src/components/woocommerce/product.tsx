@@ -1,13 +1,16 @@
 import React from "react";
 import { connect, useConnect, styled } from "frontity";
-import { isProduct } from "@frontity/woocommerce";
 import { Packages } from "../../../types";
 import AddToCart from "./add-to-cart";
+import { ProductData } from "@frontity/woocommerce/types";
 
-const Product: React.FC<{ when?: boolean }> = () => {
+interface Props {
+  when?: boolean;
+  data: ProductData;
+}
+
+const Product: React.FC<Props> = ({ data }) => {
   const { state } = useConnect<Packages>();
-  const data = state.source.get(state.router.link);
-  if (!isProduct(data)) return null;
 
   // Get the data of the product.
   const product = state.source.product[data.id];

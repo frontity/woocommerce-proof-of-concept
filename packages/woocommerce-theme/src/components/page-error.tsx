@@ -1,7 +1,11 @@
 import React from "react";
-import { styled, connect, useConnect } from "frontity";
-import { isError } from "@frontity/source";
-import { Packages } from "../../types";
+import { styled } from "frontity";
+import { ErrorData } from "@frontity/source/types";
+
+interface Props {
+  when?: boolean;
+  data: ErrorData;
+}
 
 const description404 = (
   <>
@@ -21,10 +25,7 @@ const description = (
 );
 
 // The 404 page component
-const Page404: React.FC<{ when?: boolean }> = () => {
-  const { state } = useConnect<Packages>();
-  const data = state.source.get(state.router.link);
-  if (!isError(data)) return null;
+const Page404: React.FC<Props> = ({ data }) => {
   const title = "Oops! Something went wrong";
   const title404 = "Oops! 404";
 
@@ -36,7 +37,7 @@ const Page404: React.FC<{ when?: boolean }> = () => {
   );
 };
 
-export default connect(Page404);
+export default Page404;
 
 const Container = styled.div`
   width: 800px;

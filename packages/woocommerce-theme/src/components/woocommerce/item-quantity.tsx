@@ -5,6 +5,7 @@ import { Packages } from "../../../types";
 
 const ItemQuantity: React.FC<{ item: CartItem }> = ({ item }) => {
   const { actions } = useConnect<Packages>();
+
   return (
     <Input
       type="number"
@@ -16,7 +17,6 @@ const ItemQuantity: React.FC<{ item: CartItem }> = ({ item }) => {
       onChange={(event) => {
         // Change the item quantity in the state first.
         item.quantity = parseInt(event.target.value, 10) || 0;
-
         // Then, send a request to update it in the server.
         const { key, quantity } = item;
         actions.woocommerce.updateItemFromCart({ key, quantity });

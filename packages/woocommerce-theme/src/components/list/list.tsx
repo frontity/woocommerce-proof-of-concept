@@ -4,13 +4,15 @@ import Item from "./list-item";
 import Pagination from "./pagination";
 import { Packages } from "../../../types";
 import { isTerm, isAuthor, isArchive } from "@frontity/source";
+import { ArchiveData } from "@frontity/source/types";
 
-const List = () => {
+interface Props {
+  when?: boolean;
+  data: ArchiveData;
+}
+
+const List: React.FC<Props> = ({ data }) => {
   const { state } = useConnect<Packages>();
-  // Get the data of the current list.
-  const data = state.source.get(state.router.link);
-  // Make sure the data is an archive.
-  if (!isArchive(data)) return null;
 
   return (
     <Container>

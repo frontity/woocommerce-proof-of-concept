@@ -1,12 +1,15 @@
 import React from "react";
 import { connect, useConnect, styled } from "frontity";
-import { isOrder } from "@frontity/woocommerce";
 import { Packages } from "../../../types";
+import { OrderData } from "@frontity/woocommerce/types";
 
-const Order: React.FC<{ when?: boolean }> = () => {
+interface Props {
+  when?: boolean;
+  data: OrderData;
+}
+
+const Order: React.FC<Props> = ({ data }) => {
   const { state } = useConnect<Packages>();
-  const data = state.source.get(state.router.link);
-  if (!isOrder(data)) return null;
 
   // Get the order information from the store, if it exists.
   const order = state.woocommerce.order[data.id];

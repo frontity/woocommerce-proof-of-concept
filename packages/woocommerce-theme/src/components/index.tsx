@@ -53,15 +53,15 @@ const Theme = ({ state }) => {
         <Switch>
           <Loading when={data.isFetching} />
           {/* These are the new pages introduced for WooCommerce */}
-          <Product when={isProduct(data)} />
-          <Shop when={isProductArchive(data)} />
+          <Product when={isProduct(data)} data={data} />
+          <Shop when={isProductArchive(data)} data={data} />
           <Cart when={isCart(data)} />
           <Checkout when={isCheckout(data)} />
-          <Order when={isOrder(data)} />
+          <Order when={isOrder(data)} data={data} />
           {/* These are the normal WordPress pages */}
-          <List when={isArchive(data)} />
-          <Post when={isPostType(data)} />
-          <PageError when={isError(data)} />
+          <List when={isArchive(data)} data={data} />
+          <Post when={isPostType(data)} data={data} />
+          <PageError when={isError(data)} data={data} />
         </Switch>
       </Main>
     </>
