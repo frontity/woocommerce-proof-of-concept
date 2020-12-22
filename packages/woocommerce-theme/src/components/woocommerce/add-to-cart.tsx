@@ -22,7 +22,7 @@ const AddToCart: React.FC<AddToCartProps> = ({
 
   // Get the item and its current quantity.
   const item = state.woocommerce.cart.items.find((p) => p.id === id);
-  const currentQuantity = item ? item.quantity : 0;
+  const currentQuantity = item?.quantity || 0;
 
   // Save an internal counter. The value in the cart is updated when the button
   // is clicked.
@@ -35,7 +35,7 @@ const AddToCart: React.FC<AddToCartProps> = ({
     setIsPending(true);
     await actions.woocommerce.addItemToCart({ id, quantity });
     setIsPending(false);
-  }, []);
+  }, [id, quantity]);
 
   return (
     <Container>
