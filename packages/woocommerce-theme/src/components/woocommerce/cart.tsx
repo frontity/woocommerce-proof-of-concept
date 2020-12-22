@@ -5,6 +5,7 @@ import Link from "../link";
 import ItemQuantity from "./item-quantity";
 import { renderPrice } from "./utils";
 import Loading from "../loading";
+import GoToShop from "./go-to-shop";
 
 /**
  * Component that renders the cart page.
@@ -18,6 +19,9 @@ const Cart: React.FC<{ when?: boolean }> = () => {
 
   // If there's no cart yet show the loading.
   if (!isCartReady) return <Loading />;
+
+  // If cart is empty, return a message and a "go to shop" button.
+  if (cart.items_count === 0) return <GoToShop />;
 
   return (
     <Container>
