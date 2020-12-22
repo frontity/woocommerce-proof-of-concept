@@ -1,14 +1,14 @@
 # WooCommerce & Frontity [Proof of Concept]
 
-> ⚠️ This is only an experiment of a possible `frontity-woocommerce-poc` package using the [WooCommerce Store API](https://github.com/woocommerce/woocommerce-gutenberg-products-block/tree/trunk/src/StoreApi), which is not public yet. Don't use this in production. If you want to know more about this proof of concept -or participate in the conversation- you can go to [this thread](https://community.frontity.org/t/woocommerce-proof-of-concept/3596) in the community.
+> ⚠️ This is only an experiment of a possible `@frontity/woocommerce` package using the [WooCommerce Store API](https://github.com/woocommerce/woocommerce-gutenberg-products-block/tree/trunk/src/StoreApi), which is not public yet. Don't use this in production. If you want to know more about this proof of concept -or participate in the conversation- you can go to [this thread](https://community.frontity.org/t/woocommerce-proof-of-concept/3596) in the community.
 
-> ℹ️ This repository is still a **Work In Progress** so some features may not work yet.
+> ⚠️️ This repository is still a **Work In Progress** so some features may not work yet.
 
 ## Summary
 
 This repository contains a Frontity project with two packages:
 
-**`woocommerce`**
+**`woocommerce-poc`**
 
 - Exposes state to be consumed by themes, including products, cart and checkout info.
 - Exposes actions to communicate with the [WooCommerce Store API](https://github.com/woocommerce/woocommerce-gutenberg-products-block/tree/trunk/src/StoreApi).
@@ -18,22 +18,22 @@ This repository contains a Frontity project with two packages:
 **`woocommerce-theme`**
 
 - Consumes the state populated and actions exposed by the `woocommerce` package
-- Renders pages for the products, the cart, checkout, etc.
+- Renders pages for the products, the cart, checkout and order.
 - It is based on the `@frontity/mars-theme` starter theme, and all the components related to WooCoomerce are placed into the `/packages/woocommerce-theme/src/components/woocommerce` folder.
 
-### What it does
+## What it does
 
 Here's a list of the things you can do with this proof of concept:
 
 - [x] List all products
-- [x] Preview products
+- [x] View products
 - [x] Add simple products to the cart
 - [x] Modify the quantity of each product in the cart
 - [x] Remove items from the cart
 - [x] Do the checkout
 - [x] Place an order and preview it
 
-### What it doesn't
+## What it doesn't do
 
 These ones were not implemented yet:
 
@@ -47,6 +47,7 @@ These ones were not implemented yet:
 - [ ] Use coupons
 - [ ] Change the payment method ("cheque" is hardcoded)
 - [ ] Show orders after closing or refreshing the app
+- [ ] Post previews for products
 
 ## Run the demo
 
@@ -75,9 +76,13 @@ To setup and run the Frontity project, simply follow these steps:
 
 ## WordPress Setup - _optional_
 
-By default, the Frontity project uses https://woocommerce.frontity.org as the WordPress source. You can check [this message](https://community.frontity.org/t/woocommerce-proof-of-concept/3596/7) in the community to know more about how it is configured. However, if you prefer to use your own instance, you can follow these steps:
+By default, the Frontity project uses https://woocommerce.frontity.org as the WordPress source. You can check [this message](https://community.frontity.org/t/woocommerce-proof-of-concept/3596/7) in the community to know more about how it is configured.
 
-- Create a local WordPress instace (you can use [Local](https://localwp.com/) for that).
+It can be run with your own WordPress but only in Embedded mode, because the Store API uses cookies and the `SameSite` setting they have by default doesn't allow it to be used by a different domain.
+
+So, if you prefer to use your own instance, you can set it up in Embedded mode following these steps:
+
+- Create a WordPress instace. If you are working in your own machine, you can use [Local](https://localwp.com/) for that.
 
 - Install the following plugins:
 
@@ -125,10 +130,16 @@ By default, the Frontity project uses https://woocommerce.frontity.org as the Wo
 - To run the project, you should add the `public-path` argument this time.
 
   ```bash
-  npx frontity dev --public-path http://localhost:3000/static --dont-open-browser
+  npx frontity dev --public-path http://localhost:3000/static
   ```
 
 - Navigate to the URL of your WordPress instance (**not to http://localhost:3000**) to see the Frontity site in action.
+
+If you want to deploy this to a real server remember to use `frontity build`:
+
+```bash
+npx frontity build --public-path https://your-frontity-domain.com/static
+```
 
 ---
 
