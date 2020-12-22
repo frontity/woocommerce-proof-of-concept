@@ -26,11 +26,9 @@ const Checkout: React.FC<{ when?: boolean }> = () => {
     <Container>
       <Summary>Summary</Summary>
       <Form
-        onSubmit={async (e) => {
+        onSubmit={(e) => {
           e.preventDefault();
-          // Do nothing if `paymentMethod` was not specified yet.
-          if (!state.woocommerce.checkout.payment_method) return;
-          await actions.woocommerce.placeOrder();
+          actions.woocommerce.placeOrder();
         }}
       >
         <h2>Contact information</h2>
