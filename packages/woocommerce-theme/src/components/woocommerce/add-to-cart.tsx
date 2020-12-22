@@ -15,15 +15,13 @@ const AddToCart: React.FC<AddToCartProps> = ({
 }) => {
   // Connect to the Frontity store.
   const { state, actions } = useConnect<Packages>();
-  const { cart } = state.woocommerce;
-  const { addItemToCart } = actions.woocommerce;
 
   // Get required props from the product.
   const { type, id, add_to_cart } = product;
   const { text, description, url } = add_to_cart;
 
   // Get the item and its current quantity.
-  const item = cart?.items?.find((p) => p.id === id);
+  const item = state.woocommerce.cart?.items?.find((p) => p.id === id);
   const currentQuantity = item ? item.quantity : 0;
 
   // Save an internal counter. The value in the cart is updated when the button
@@ -56,12 +54,13 @@ const AddToCart: React.FC<AddToCartProps> = ({
         <ButtonContainer>
           <Button
             title={description}
+            disabled={isPending}
             onClick={async () => {
               // Do nothing if a task is pending.
               if (isPending) return;
 
               setIsPending(true);
-              await addItemToCart({ id, quantity });
+              await actions.woocommerce.addItemToCart({ id, quantity });
               setIsPending(false);
             }}
           >
