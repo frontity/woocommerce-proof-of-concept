@@ -1,9 +1,34 @@
 {
+  "scope": "frontity",
+  "name": "woocommerce-proof-of-concept",
   "version": 2,
   "builds": [
     {
-      "src": "package.json",
-      "use": "@frontity/now"
+      "src": "build/static/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "favicon.ico",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "build/server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "headers": {
+        "cache-control": "max-age=31536000,s-maxage=31536000,immutable"
+      },
+      "dest": "/build/static/$1"
+    },
+    { "src": "/favicon.ico", "dest": "/favicon.ico" },
+    {
+      "src": "/(.*)",
+      "headers": { "cache-control": "no-cache" },
+      "dest": "/build/server.js"
     }
   ]
 }
