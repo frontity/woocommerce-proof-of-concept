@@ -4,7 +4,7 @@ import { Packages } from "../../../types";
 import Link from "../link";
 import Pagination from "../list/pagination";
 import AddToCart from "./add-to-cart";
-import { ProductArchiveData } from "@frontity/woocommerce/types";
+import { ProductArchiveData } from "frontity-woocommerce-poc/types";
 
 interface Props {
   when?: boolean;
@@ -17,10 +17,12 @@ const Shop: React.FC<Props> = ({ data }) => {
   return (
     <Container>
       <ProductList>
-        {/* Iterate over the items of the list. */}
+        {/* Iterate over the products of the shop. */}
         {data.items.map(({ id }) => {
           const product = state.source.product[id];
           const [image] = product.images;
+          // We have to do this because Frontity only does this automatically
+          // for `link` properties.
           const link = new URL(product.permalink).pathname;
 
           return (

@@ -26,7 +26,7 @@
     "@frontity/html2react": "^1.5.0",
     "@frontity/source": "^1.4.0",
     "@frontity/tiny-router": "^1.2.4",
-    "@frontity/woocommerce": "file:packages/woocommerce",
+    "frontity-woocommerce-poc": "file:packages/woocommerce-poc",
     "@frontity/wp-source": "^1.10.0",
     "@types/react": "^17.0.0",
     "frontity": "^1.13.0",

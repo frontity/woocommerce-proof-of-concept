@@ -1,6 +1,7 @@
 {
   "name": "woocommerce-theme",
   "version": "0.1.0",
+  "private": true,
   "description": "A starter theme for Frontity & WooCommerce",
   "keywords": [
     "frontity",

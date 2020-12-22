@@ -1,6 +1,6 @@
 # WooCommerce & Frontity [Proof of Concept]
 
-> ⚠️ This is only an experiment of a possible `@frontity/woocommerce` package using the [WooCommerce Store API](https://github.com/woocommerce/woocommerce-gutenberg-products-block/tree/trunk/src/StoreApi), which is not public yet. Don't use this in production. If you want to know more about this proof of concept -or participate in the conversation- you can go to [this thread](https://community.frontity.org/t/woocommerce-proof-of-concept/3596) in the community.
+> ⚠️ This is only an experiment of a possible `frontity-woocommerce-poc` package using the [WooCommerce Store API](https://github.com/woocommerce/woocommerce-gutenberg-products-block/tree/trunk/src/StoreApi), which is not public yet. Don't use this in production. If you want to know more about this proof of concept -or participate in the conversation- you can go to [this thread](https://community.frontity.org/t/woocommerce-proof-of-concept/3596) in the community.
 
 > ℹ️ This repository is still a **Work In Progress** so some features may not work yet.
 

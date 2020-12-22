@@ -2,7 +2,7 @@ import React from "react";
 import { connect, useConnect, styled } from "frontity";
 import { Packages } from "../../../types";
 import AddToCart from "./add-to-cart";
-import { ProductData } from "@frontity/woocommerce/types";
+import { ProductData } from "frontity-woocommerce-poc/types";
 
 interface Props {
   when?: boolean;

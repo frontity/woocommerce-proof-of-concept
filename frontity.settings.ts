@@ -1,6 +1,6 @@
 import { Settings } from "frontity/types";
 import Source from "@frontity/source/types";
-import WooCommerce from "@frontity/woocommerce/types";
+import WooCommerce from "frontity-woocommerce-poc/types";
 import WooCommerceTheme from "woocommerce-theme/types";
 
 const settings: Settings<Source | WooCommerce | WooCommerceTheme> = {
@@ -35,7 +35,7 @@ const settings: Settings<Source | WooCommerce | WooCommerceTheme> = {
     },
     "@frontity/tiny-router",
     "@frontity/html2react",
-    "@frontity/woocommerce",
+    "frontity-woocommerce-poc",
   ],
 };
 

@@ -1,6 +1,6 @@
-# `@frontity/woocommerce`
+# `frontity-woocommerce-poc`
 
-A proof of concept of a possible `@frontity/woocommerce` package.
+A proof of concept of a possible `frontity-woocommerce-poc` package.
 
 > ⚠️ This is not a real package and it is not published on npm yet. The only way to test it is by cloning this repository.
 
