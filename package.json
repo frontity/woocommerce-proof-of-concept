@@ -16,7 +16,12 @@
     "serve": "frontity serve"
   },
   "prettier": {},
+  "workspaces": [
+    "packages/*"
+  ],
   "dependencies": {
+    "@changesets/changelog-github": "^0.2.7",
+    "@changesets/cli": "^2.12.0",
     "@frontity/core": "^1.9.1",
     "@frontity/html2react": "^1.5.0",
     "@frontity/source": "^1.4.0",
