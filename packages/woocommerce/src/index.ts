@@ -114,6 +114,11 @@ const wooCommerce: WooCommerce = {
       },
 
       updateItemFromCart: ({ state }) => async ({ key, quantity }) => {
+        // Update item quantity in the state.
+        state.woocommerce.cart.items.find(
+          (item) => item.key === key
+        ).quantity = quantity;
+        // Update backend.
         state.woocommerce.cart = await storeApi({
           state,
           endpoint: "cart/update-item",
