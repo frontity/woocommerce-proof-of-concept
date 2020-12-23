@@ -166,6 +166,7 @@ const wooCommerce: WooCommerce = {
         state.woocommerce.cart.items.find(
           (item) => item.key === key
         ).quantity = quantity;
+
         // Update cart in the backend.
         state.woocommerce.cart = await storeApi({
           state,
@@ -289,6 +290,7 @@ const wooCommerce: WooCommerce = {
       },
     },
   },
+
   libraries: {
     source: {
       handlers: [

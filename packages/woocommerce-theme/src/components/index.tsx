@@ -52,8 +52,8 @@ const Theme = () => {
         <Switch>
           <Loading when={data.isFetching} />
           {/* These are the new pages introduced for WooCommerce */}
-          <Product data={isProduct(data) && data} />
           <Shop data={isProductArchive(data) && data} />
+          <Product data={isProduct(data) && data} />
           <Cart when={isCart(data)} />
           <Checkout when={isCheckout(data)} />
           <Order data={isOrder(data) && data} />
