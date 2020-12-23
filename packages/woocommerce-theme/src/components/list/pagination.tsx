@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { connect, styled, useConnect } from "frontity";
 import Link from "../custom/link";
 import { Packages } from "../../../types";
-import { isArchive } from "@frontity/source";
+import { ArchiveData } from "@frontity/source/types";
 
 /**
  * Pagination Component
@@ -14,10 +14,7 @@ import { isArchive } from "@frontity/source";
  */
 const Pagination = () => {
   const { state, actions } = useConnect<Packages>();
-  // Get the total posts to be displayed based for the current link
-  const data = state.source.get(state.router.link);
-  // Make sure data is an archive.
-  if (!isArchive(data)) return null;
+  const data: ArchiveData = state.source.get(state.router.link);
 
   // Pre-fetch the the next page if it hasn't been fetched yet.
   useEffect(() => {
