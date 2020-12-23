@@ -1,6 +1,6 @@
 import React from "react";
 import { connect, styled, useConnect } from "frontity";
-import Link from "./link";
+import Link from "./custom/link";
 import Nav from "./nav";
 import MobileMenu from "./menu";
 import { Packages } from "../../types";

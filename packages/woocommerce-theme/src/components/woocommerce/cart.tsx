@@ -1,7 +1,7 @@
 import React from "react";
 import { connect, useConnect, styled } from "frontity";
 import { Packages } from "../../../types";
-import Link from "../link";
+import Link from "../custom/link";
 import ItemQuantity from "./item-quantity";
 import { renderPrice } from "./utils";
 import Loading from "../loading";

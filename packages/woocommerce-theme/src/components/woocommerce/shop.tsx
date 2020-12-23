@@ -1,7 +1,7 @@
 import React from "react";
 import { connect, useConnect, styled } from "frontity";
 import { Packages } from "../../../types";
-import Link from "../link";
+import Link from "../custom/link";
 import Pagination from "../list/pagination";
 import AddToCart from "./add-to-cart";
 import { ProductArchiveData } from "woocommerce-poc/types";

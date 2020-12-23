@@ -2,7 +2,7 @@ import React from "react";
 import { connect, useConnect, styled } from "frontity";
 import { Packages } from "../../../types";
 import Loading from "../loading";
-import Link from "../link";
+import Link from "../custom/link";
 import BillingField from "./billing-field";
 import GoToShop from "./go-to-shop";
 

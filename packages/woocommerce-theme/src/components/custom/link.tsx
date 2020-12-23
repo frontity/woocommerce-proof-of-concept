@@ -1,7 +1,7 @@
 import React from "react";
 import { connect, useConnect } from "frontity";
 import Link from "@frontity/components/link";
-import { Packages } from "../../types";
+import { Packages } from "../../../types";
 
 /**
  * The MarsLink component, which is a wrapper on top of the {@link Link}

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { connect, useConnect, styled } from "frontity";
 import { isPost } from "@frontity/source";
 import { Packages } from "../../types";
-import Link from "./link";
+import Link from "./custom/link";
 import FeaturedMedia from "./featured-media";
 import { PostEntity, PostTypeData } from "@frontity/source/types";
 

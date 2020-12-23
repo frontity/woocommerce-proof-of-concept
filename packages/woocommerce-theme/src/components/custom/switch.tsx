@@ -15,7 +15,8 @@ interface SwitchChild {
 
 /**
  * This is a custom Switch component we are trying for routing in TypeScript
- * themes.
+ * themes by using a `data` prop that acts like the `when` but is also sent to
+ * the component.
  */
 const Switch: React.FC<Package> | null = ({ children }) => {
   const components: ReactNodeArray = React.Children.toArray(children);
