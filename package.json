@@ -15,7 +15,10 @@
     "build": "frontity build",
     "serve": "frontity serve"
   },
-  "prettier": {},
+  "prettier": {
+    "trailingComma": "es5",
+    "arrowParens": "always"
+  },
   "workspaces": [
     "packages/*"
   ],
