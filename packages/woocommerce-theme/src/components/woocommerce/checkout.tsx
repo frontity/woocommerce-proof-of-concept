@@ -58,7 +58,9 @@ const Checkout: React.FC<{ when?: boolean }> = () => {
           <TextArea
             value={customer_note}
             onChange={(e) => {
-              actions.woocommerce.setCustomerNote(e.target.value);
+              actions.woocommerce.setCustomerNote({
+                customer_note: e.target.value,
+              });
             }}
           />
         </FormSection>

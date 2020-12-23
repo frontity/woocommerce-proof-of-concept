@@ -10,8 +10,22 @@ const wooCommerce: WooCommerce = {
   name: "woocommerce",
   state: {
     woocommerce: {
+      /**
+       * Indicate if the cart has been already syncronized with the backend and
+       * it is ready to be shown.
+       *
+       * The first syncronization happens in the client side, triggered by the
+       * `afterCSR` action which is run after the React hydration. We do that to
+       * make every single page cachable, including the cart, the checkout, the
+       * thank-you page and so on.
+       */
       isCartReady: false,
-      // The cart is initialized in the client side rendering (`afterCSR`).
+
+      /**
+       * The information of the current cart. Right now we are just
+       * copying what the Store API returns, but in the future we should
+       * create our own data structure.
+       */
       cart: {
         coupons: [],
         shipping_rates: [],
@@ -69,30 +83,55 @@ const wooCommerce: WooCommerce = {
         extensions: {},
       },
 
+      /**
+       * The information of the current checkout. The billing and shipping
+       * addresses are omitted because they are currently stored in the cart.
+       */
       checkout: {
-        // The billing_address is stored in the cart. This is just a pointer.
-        billing_address: ({ state }) => state.woocommerce.cart?.billing_address,
-        // The shipping_address is stored in the cart. This is just a pointer.
-        shipping_address: ({ state }) =>
-          state.woocommerce.cart?.shipping_address,
-        // Payment method is currently hardcoded to "cheque".
+        /**
+         * The payment method is currently hardcoded to "cheque".
+         */
         payment_method: "cheque",
         customer_note: "",
       },
 
+      /**
+       * A map of orders, ordered by id. For the moment they contain what the
+       * Store API returns after each successfull checkout.
+       */
       order: {},
     },
     source: {
+      /**
+       * A map of products, ordered by id. They are retrieved using the handlers
+       * of the shop (product archive) and the individual products.
+       *
+       * Even though products are custom post types in WordPress, the Store API
+       * doesn't follow the standard schema for post types, so this data is not
+       * compatible with regular post types.
+       */
       product: {},
     },
   },
+
   actions: {
     woocommerce: {
+      /**
+       * Retrieve the cart from the backend. Usually triggered after the
+       * client-side hydration. It also marks the cart as ready after the
+       * syncronization to inform the theme that the cart is ready to be shown.
+       */
       getCart: async ({ state }) => {
         state.woocommerce.cart = await storeApi({ state, endpoint: "cart" });
         state.woocommerce.isCartReady = true;
       },
 
+      /**
+       * Add a product to the cart.
+       *
+       * @param id - The cart item product or variation ID.
+       * @param quantity - Quantity of this item in the cart.
+       */
       addItemToCart: ({ state }) => async ({ id, quantity }) => {
         state.woocommerce.cart = await storeApi({
           state,
@@ -102,6 +141,11 @@ const wooCommerce: WooCommerce = {
         });
       },
 
+      /**
+       * Remove an item from the cart.
+       *
+       * @param key - The key of the cart item to remove.
+       */
       removeItemFromCart: ({ state }) => async ({ key }) => {
         state.woocommerce.cart = await storeApi({
           state,
@@ -111,12 +155,18 @@ const wooCommerce: WooCommerce = {
         });
       },
 
+      /**
+       * Update an item in the cart.
+       *
+       * @param key - The key of the cart item to edit.
+       * @param quantity - Quantity of this item in the cart.
+       */
       updateItemFromCart: ({ state }) => async ({ key, quantity }) => {
         // Update item quantity in the state.
         state.woocommerce.cart.items.find(
           (item) => item.key === key
         ).quantity = quantity;
-        // Update backend.
+        // Update cart in the backend.
         state.woocommerce.cart = await storeApi({
           state,
           endpoint: "cart/update-item",
@@ -125,6 +175,11 @@ const wooCommerce: WooCommerce = {
         });
       },
 
+      /**
+       * Apply a coupon to the current cart.
+       *
+       * @param code - The coupon code.
+       */
       applyCoupon: ({ state }) => async ({ code }) => {
         state.woocommerce.cart = await storeApi({
           state,
@@ -134,6 +189,11 @@ const wooCommerce: WooCommerce = {
         });
       },
 
+      /**
+       * Remove a coupon from the current cart.
+       *
+       * @param code - The coupon code.
+       */
       removeCoupon: ({ state }) => async ({ code }) => {
         state.woocommerce.cart = await storeApi({
           state,
@@ -143,25 +203,23 @@ const wooCommerce: WooCommerce = {
         });
       },
 
+      /**
+       * Update the customer information.
+       *
+       * @param billingAddress - The billing address. Can be a partial object.
+       * @param shippingAddress - The shipping address. Can be a partial object.
+       */
       updateCustomer: ({ state }) => async ({
         billingAddress = {},
         shippingAddress = {},
       }) => {
-        // First, update the current state. This would be overwritten with the
-        // REST API response but we can show the changes in advance.
-        state.woocommerce.cart.billing_address = {
-          ...state.woocommerce.cart.billing_address,
-          ...billingAddress,
-        };
-        state.woocommerce.cart.shipping_address = {
-          ...state.woocommerce.cart.shipping_address,
-          ...shippingAddress,
-        };
-
-        // Get updated values from the state.
         const { billing_address, shipping_address } = state.woocommerce.cart;
 
-        // Send the updated values and get the cart updated back.
+        // Update the current state.
+        Object.assign(billing_address, billingAddress);
+        Object.assign(shipping_address, shippingAddress);
+
+        // Send the updated values.
         await storeApi({
           state,
           endpoint: "cart/update-customer",
@@ -170,30 +228,32 @@ const wooCommerce: WooCommerce = {
         });
       },
 
-      selectShippingRate: ({ state }) => async ({ package_id, rate_id }) => {
-        state.woocommerce.cart = await storeApi({
-          state,
-          endpoint: `cart/select-shipping-rate/${package_id}`,
-          method: "POST",
-          params: { rate_id },
-        });
-      },
-
-      setCustomerNote: ({ state }) => (customer_note) => {
+      /**
+       * Update the customer note in the state.
+       *
+       * @param customer_note - The note added by the customer.
+       */
+      setCustomerNote: ({ state }) => ({ customer_note }) => {
         state.woocommerce.checkout.customer_note = customer_note;
       },
 
-      setPaymentMethod: ({ state }) => (payment_method) => {
+      /**
+       * Update the payment method in the state.
+       *
+       * @param payment_method - The payment method.
+       */
+      setPaymentMethod: ({ state }) => ({ payment_method }) => {
         state.woocommerce.checkout.payment_method = payment_method;
       },
 
-      placeOrder: ({ state, actions }) => async (payment_data = {}) => {
-        const {
-          billing_address,
-          shipping_address,
-          payment_method,
-          customer_note,
-        } = state.woocommerce.checkout;
+      /**
+       * Place an order and redirect to the thank-you page when it finishes.
+       *
+       * @param payment_data - An optional object containing the payment data.
+       */
+      placeOrder: ({ state, actions }) => async ({ payment_data } = {}) => {
+        const { payment_method, customer_note } = state.woocommerce.checkout;
+        const { billing_address, shipping_address } = state.woocommerce.cart;
 
         // Get the checkout result from the REST API.
         const checkout: Checkout = await storeApi({
@@ -205,15 +265,16 @@ const wooCommerce: WooCommerce = {
             shipping_address,
             payment_method,
             customer_note,
-            payment_data,
+            payment_data: payment_data || {},
           },
         });
 
-        // Get the current cart from the state.
-        const { cart } = state.woocommerce;
-
         // Create an order entity putting all the information together.
-        state.woocommerce.order[checkout.order_id] = { checkout, cart };
+        state.woocommerce.order[checkout.order_id] = {
+          checkout,
+          // Shallow clone the current cart.
+          cart: { ...state.woocommerce.cart },
+        };
 
         // Get the current cart from the REST API. It should be empty now. We
         // don't need to wait for the response here.
