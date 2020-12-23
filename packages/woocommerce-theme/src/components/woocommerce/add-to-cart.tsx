@@ -2,7 +2,7 @@ import React from "react";
 import { connect, useConnect, styled } from "frontity";
 import { ProductEntity } from "woocommerce-poc/types";
 import { Packages } from "../../../types";
-import Link from "../link";
+import Link from "../custom/link";
 
 type AddToCartProps = {
   product: ProductEntity;

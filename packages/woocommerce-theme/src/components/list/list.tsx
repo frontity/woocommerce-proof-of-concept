@@ -3,15 +3,10 @@ import { connect, styled, decode, useConnect } from "frontity";
 import Item from "./list-item";
 import Pagination from "./pagination";
 import { Packages } from "../../../types";
-import { isTerm, isAuthor, isArchive } from "@frontity/source";
+import { isTerm, isAuthor } from "@frontity/source";
 import { ArchiveData } from "@frontity/source/types";
 
-interface Props {
-  when?: boolean;
-  data: ArchiveData;
-}
-
-const List: React.FC<Props> = ({ data }) => {
+const List: React.FC<{ data: ArchiveData }> = ({ data }) => {
   const { state } = useConnect<Packages>();
 
   return (

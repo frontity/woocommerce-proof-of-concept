@@ -1,17 +1,12 @@
 import React from "react";
 import { connect, useConnect, styled } from "frontity";
 import { Packages } from "../../../types";
-import Link from "../link";
+import Link from "../custom/link";
 import Pagination from "../list/pagination";
 import AddToCart from "./add-to-cart";
 import { ProductArchiveData } from "woocommerce-poc/types";
 
-interface Props {
-  when?: boolean;
-  data: ProductArchiveData;
-}
-
-const Shop: React.FC<Props> = ({ data }) => {
+const Shop: React.FC<{ data: ProductArchiveData }> = ({ data }) => {
   const { state } = useConnect<Packages>();
 
   return (

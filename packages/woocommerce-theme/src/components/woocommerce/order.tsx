@@ -3,12 +3,7 @@ import { connect, useConnect, styled } from "frontity";
 import { Packages } from "../../../types";
 import { OrderData } from "woocommerce-poc/types";
 
-interface Props {
-  when?: boolean;
-  data: OrderData;
-}
-
-const Order: React.FC<Props> = ({ data }) => {
+const Order: React.FC<{ data: OrderData }> = ({ data }) => {
   const { state } = useConnect<Packages>();
 
   // Get the order information from the store, if it exists.

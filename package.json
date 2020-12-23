@@ -32,7 +32,8 @@
     "@frontity/wp-source": "^1.10.0",
     "@types/react": "^17.0.0",
     "frontity": "^1.13.0",
-    "woocommerce-theme": "file:packages/woocommerce-theme",
-    "woocommerce-poc": "file:packages/woocommerce-poc"
+    "prettier": "^2.2.1",
+    "woocommerce-poc": "file:packages/woocommerce-poc",
+    "woocommerce-theme": "file:packages/woocommerce-theme"
   }
 }

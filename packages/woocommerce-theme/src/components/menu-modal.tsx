@@ -1,6 +1,6 @@
 import React from "react";
 import { styled, connect, useConnect } from "frontity";
-import Link from "./link";
+import Link from "./custom/link";
 import { Packages } from "../../types";
 
 const MenuModal = () => {

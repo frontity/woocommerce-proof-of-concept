@@ -2,11 +2,6 @@ import React from "react";
 import { styled } from "frontity";
 import { ErrorData } from "@frontity/source/types";
 
-interface Props {
-  when?: boolean;
-  data: ErrorData;
-}
-
 const description404 = (
   <>
     That page can’t be found{" "}
@@ -25,7 +20,7 @@ const description = (
 );
 
 // The 404 page component
-const Page404: React.FC<Props> = ({ data }) => {
+const Page404: React.FC<{ data: ErrorData }> = ({ data }) => {
   const title = "Oops! Something went wrong";
   const title404 = "Oops! 404";
 

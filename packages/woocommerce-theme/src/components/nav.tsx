@@ -1,6 +1,6 @@
 import React from "react";
 import { connect, styled, useConnect } from "frontity";
-import Link from "./link";
+import Link from "./custom/link";
 import { Packages } from "../../types";
 
 /**
