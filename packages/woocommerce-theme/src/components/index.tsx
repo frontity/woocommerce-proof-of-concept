@@ -1,6 +1,6 @@
 import React from "react";
-import { Global, css, connect, styled, Head } from "frontity";
-import Switch from "@frontity/components/switch";
+import { Global, css, connect, styled, Head, useConnect } from "frontity";
+import Switch from "./custom/switch";
 import { isArchive, isPostType, isError } from "@frontity/source";
 import {
   isProduct,
@@ -19,13 +19,14 @@ import Shop from "./woocommerce/shop";
 import Cart from "./woocommerce/cart";
 import Checkout from "./woocommerce/checkout";
 import Order from "./woocommerce/order";
+import { Packages } from "../../types";
 
 /**
  * Theme is the root React component of our theme. The one we will export
  * in roots.
  */
-const Theme = ({ state }) => {
-  // Get information about the current URL.
+const Theme = () => {
+  const { state } = useConnect<Packages>();
   const data = state.source.get(state.router.link);
 
   return (
@@ -51,15 +52,15 @@ const Theme = ({ state }) => {
         <Switch>
           <Loading when={data.isFetching} />
           {/* These are the new pages introduced for WooCommerce */}
-          <Product when={isProduct(data)} data={data} />
-          <Shop when={isProductArchive(data)} data={data} />
+          <Product data={isProduct(data) && data} />
+          <Shop data={isProductArchive(data) && data} />
           <Cart when={isCart(data)} />
           <Checkout when={isCheckout(data)} />
-          <Order when={isOrder(data)} data={data} />
+          <Order data={isOrder(data) && data} />
           {/* These are the normal WordPress pages */}
-          <List when={isArchive(data)} data={data} />
-          <Post when={isPostType(data)} data={data} />
-          <PageError when={isError(data)} data={data} />
+          <List data={isArchive(data) && data} />
+          <Post data={isPostType(data) && data} />
+          <PageError data={isError(data) && data} />
         </Switch>
       </Main>
     </>

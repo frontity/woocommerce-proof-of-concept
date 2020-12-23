@@ -4,12 +4,7 @@ import { Packages } from "../../../types";
 import AddToCart from "./add-to-cart";
 import { ProductData } from "woocommerce-poc/types";
 
-interface Props {
-  when?: boolean;
-  data: ProductData;
-}
-
-const Product: React.FC<Props> = ({ data }) => {
+const Product: React.FC<{ data: ProductData }> = ({ data }) => {
   const { state } = useConnect<Packages>();
 
   // Get the data of the product.
