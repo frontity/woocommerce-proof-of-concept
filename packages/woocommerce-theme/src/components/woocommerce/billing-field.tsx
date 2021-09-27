@@ -10,9 +10,9 @@ type BillingFieldProps = {
 } & React.HTMLProps<HTMLInputElement>;
 
 /**
- * Component that renders the checkout page.
+ * Component that renders the fields of the checkout.
  */
-const Checkout: React.FC<BillingFieldProps> = ({
+const BillingField: React.FC<BillingFieldProps> = ({
   label,
   field,
   ...inputProps
@@ -45,7 +45,6 @@ const Checkout: React.FC<BillingFieldProps> = ({
         onChange={(e) => {
           // First update it in the state.
           state.woocommerce.cart.billing_address[field] = e.target.value;
-
           // Then, call the debounced method to update it in the server.
           e.target.checkValidity();
           if (e.target.reportValidity()) updateBillingField(e.target.value);
@@ -56,7 +55,7 @@ const Checkout: React.FC<BillingFieldProps> = ({
   );
 };
 
-export default connect(Checkout, { injectProps: false });
+export default connect(BillingField, { injectProps: false });
 
 const Field = styled.div`
   label {
