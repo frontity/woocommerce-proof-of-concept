@@ -15,7 +15,7 @@ const Shop: React.FC<{ data: ProductArchiveData }> = ({ data }) => {
         {/* Iterate over the products of the shop. */}
         {data.items.map(({ id }) => {
           const product = state.source.product[id];
-          const [image] = product.images;
+          const image = product.images[0];
           // We have to do this because Frontity only does this automatically
           // for `link` properties.
           const link = new URL(product.permalink).pathname;
