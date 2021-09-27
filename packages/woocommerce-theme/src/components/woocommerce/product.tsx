@@ -9,7 +9,7 @@ const Product: React.FC<{ data: ProductData }> = ({ data }) => {
 
   // Get the data of the product.
   const product = state.source.product[data.id];
-  const [image] = product.images;
+  const image = product.images[0];
 
   return (
     <Container>
